@@ -1,14 +1,17 @@
 # PADO Hologram
 
-An open-source computer-generated holography framework built on top of PADO, a PyTorch differentiable optics library.
+`PADO Hologram` is the CGH-focused evolution of the original
+[`PADO`](https://github.com/shwbaek/pado) differentiable optics core.
+Rebuilt as a lean, native stack, it picks up where earlier frameworks such as
+[`holotorch`](https://github.com/facebookresearch/holotorch) left off, with a stronger
+focus on long-term maintainability, clarity, and performance.
 
-`PADO` also carries a Korean meaning: [`파도`](https://ko.wikipedia.org/wiki/%ED%8C%8C%EB%8F%84), or `wave`.
-The name fits the physics, but it also expresses the broader goal of this project:
-to give the holography and computational imaging community a wave to ride together.
+The name draws from the Korean word [`파도`](https://ko.wikipedia.org/wiki/%ED%8C%8C%EB%8F%84), or `wave`.
+It refers both to the physical waves we manipulate and to the shared momentum of
+the researchers building this field together.
 
-This maintained repository is building a reusable holography layer on top of the
-original `pado` optics core, with practical CGH workflows, device-aware SLM
-modeling, reproducible experiments, and a welcoming contributor culture.
+We want this repository to be a unified home for differentiable holography:
+one that helps the community move beyond fragmented one-off efforts.
 
 Key directions:
 

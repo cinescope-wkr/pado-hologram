@@ -8,6 +8,17 @@ This repository remains under the MIT License inherited from the original PADO
 project. The maintained ``PADO Hologram`` repository direction does not change
 that license.
 
+Based on the current ``LICENSE`` file in this repository and the current
+`upstream PADO repository <https://github.com/shwbaek/pado>`_, the license is
+MIT. That license explicitly permits reuse, modification, merge, publication,
+distribution, sublicensing, and sale, provided that the copyright notice and
+license notice are retained in copies or substantial portions of the software.
+
+In practical terms, that means a maintained extension such as ``PADO Hologram``
+is compatible with the repository's current license structure as long as those
+notices are preserved. This is a technical reading of the license text, not
+formal legal advice.
+
 The MIT license allows you to:
 
 - Use the software commercially

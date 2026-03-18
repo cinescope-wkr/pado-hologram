@@ -1,23 +1,25 @@
-.. image:: ../images/banner_1.0.0.svg
+.. image:: ../images/banner_1.0.0.png
    :width: 100%
    :class: banner-image
 
 PADO Hologram
 =============
 
-Computer-generated holography workflows built on top of the original ``pado``
-optics core.
+``PADO Hologram`` is the CGH-focused evolution of the original
+`PADO <https://github.com/shwbaek/pado>`_ differentiable optics core.
+Rebuilt as a lean, native stack, it picks up where earlier frameworks such as
+`holotorch <https://github.com/facebookresearch/holotorch>`_ left off, with a stronger
+emphasis on long-term maintainability, clarity, and performance.
 
-``PADO`` also echoes the Korean word `파도 <https://ko.wikipedia.org/wiki/%ED%8C%8C%EB%8F%84>`_, meaning ``wave``. The project name
-therefore points both to optical wave physics and to a more communal idea: that
-this is a wave the community can ride together.
+``PADO`` also echoes the Korean word `파도 <https://ko.wikipedia.org/wiki/%ED%8C%8C%EB%8F%84>`_, meaning ``wave``. The name points both to the
+physical waves we manipulate and to the collective momentum of the researchers
+who work on them.
 
-This repository is also intended as a shared home for the broader holography and
-computational imaging community: a place where people from CS, EE, optics,
-physics, psychology, perception research, and neighboring areas can build
-together, learn from one another, and help move the field beyond fragmented
-one-off efforts. In that spirit, ``PADO Hologram`` is an invitation to surf this
-`파도 <https://ko.wikipedia.org/wiki/%ED%8C%8C%EB%8F%84>`_ together.
+This repository is intended as a shared home for the broader holography and
+computational imaging community: a place where people from physics, CS, EE,
+optics, psychology, perception research, and neighboring areas can move beyond
+fragmented one-off efforts and build together. In that spirit,
+``PADO Hologram`` is an invitation to surf this `파도 <https://ko.wikipedia.org/wiki/%ED%8C%8C%EB%8F%84>`_ together.
 
 .. note::
 
