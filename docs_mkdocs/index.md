@@ -19,4 +19,4 @@ Key directions:
 - SLM/display-aware encoding workflows
 - single-plane and multi-plane CGH pipelines
 - Hydra-based reproducible experiment runs
-- an open community across CS, EE, optics, physics, psychology, perception science, and related backgrounds
+- an open community across computer science, electrical engineering, optics, physics, psychology, perception science, and related backgrounds

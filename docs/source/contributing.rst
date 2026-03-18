@@ -8,7 +8,7 @@ original ``pado`` optics core, and contributions across algorithms, abstractions
 tests, and documentation are valuable.
 
 This is also intended to be a community project in the broader sense: a place
-where people from CS, EE, optics, physics, psychology, perception science, and
+where people from computer science, electrical engineering, optics, physics, psychology, perception science, and
 related backgrounds can contribute to a shared effort instead of staying trapped
 inside fragmented one-off codebases and disconnected attempts.
 

@@ -103,7 +103,7 @@ that perspective is valuable here. The aim is not to clone it, but to learn from
 what it made possible and rebuild the most useful ideas in a smaller, PADO-native,
 more maintainable form.
 
-That invitation is intentionally broad. People from CS, EE, optics, physics,
+That invitation is intentionally broad. People from computer science, electrical engineering, optics, physics,
 psychology, perception science, and adjacent fields are all welcome if they care
 about advancing holography and computational imaging together.
 

@@ -16,7 +16,7 @@ physical waves we manipulate and to the collective momentum of the researchers
 who work on them.
 
 This repository is intended as a shared home for the broader holography and
-computational imaging community: a place where people from physics, CS, EE,
+computational imaging community: a place where people from physics, computer science, electrical engineering,
 optics, psychology, perception research, and neighboring areas can move beyond
 fragmented one-off efforts and build together. In that spirit,
 ``PADO Hologram`` is an invitation to surf this `파도 <https://ko.wikipedia.org/wiki/%ED%8C%8C%EB%8F%84>`_ together.

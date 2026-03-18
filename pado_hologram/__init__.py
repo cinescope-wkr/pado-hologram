@@ -29,7 +29,7 @@ from .targets import IntensityTarget, MultiPlaneIntensityTarget, normalize_mean_
 
 PROJECT_NAME = "PADO Hologram"
 PACKAGE_NAME = "pado_hologram"
-DESCRIPTION = "Computer-generated holography workflows built on top of PADO."
+DESCRIPTION = "An open-source computer-generated holography framework built on top of PADO."
 MAINTAINER = "Jinwoo Lee"
 MAINTAINER_EMAIL = "cinescope@kaist.ac.kr"
 __version__ = "0.2.0"

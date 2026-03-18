@@ -3,7 +3,7 @@
 </div>
 
 <h1 align="center">PADO Hologram</h1>
-<h3 align="center">Computer-generated holography workflows built on top of PADO</h3>
+<h3 align="center">An open-source computer-generated holography framework built on top of PADO</h3>
 
 <p align="center">
   <a href="https://cinescope-wkr.github.io/pado-hologram/">Documentation</a> •
@@ -35,7 +35,7 @@ It reflects both the physical waves we manipulate and the collective momentum of
 the researchers who work on them.
 
 We want this repository to be a unified home for differentiable holography:
-a place where physicists, computer scientists, EE researchers, optical engineers,
+a place where physicists, computer scientists, electrical engineers, optical engineers,
 perception researchers, and curious builders can move beyond fragmented one-off
 efforts and build together.
 
@@ -206,7 +206,7 @@ maintainable, PADO-native form.
 
 More broadly, this project is intended as a meeting point for the holography and
 computational imaging community across disciplines. Whether your background is
-CS, EE, optics, physics, psychology, perception science, or something adjacent,
+computer science, electrical engineering, optics, physics, psychology, perception science, or something adjacent,
 you are welcome here if you care about this field and want to help it grow.
 
 The long-term vision is to move past fragmented efforts and build something that

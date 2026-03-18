@@ -3,9 +3,10 @@ name: Deploy Documentation
 on:
   push:
     branches:
-      - main  # or your default branch
-    paths:
-      - 'docs/**'  # Only trigger on changes to docs directory
+      - main
+
+permissions:
+  contents: write
 
 jobs:
   deploy:
@@ -21,18 +22,20 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install sphinx furo sphinx-copybutton sphinx-design myst-parser nbsphinx sphinx-autodoc-typehints
-          pip install -e .  # Install the package itself
+          pip install -r requirements/requirements-docs.txt
+          pip install -e .
           
       - name: Build documentation
         run: |
           cd docs
+          make clean
+          make api
           make html
-          touch build/html/.nojekyll  # Disable Jekyll processing
+          touch build/html/.nojekyll
           
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./docs/build/html
-          force_orphan: true 
+          force_orphan: true
