@@ -25,7 +25,7 @@ fragmented one-off efforts and build together. In that spirit,
 
    This documentation covers a forked, repository-maintained, holography-oriented
    repository built on top of the original PADO framework.
-   The original framework is developed by the POSTECH Computer Graphics Lab.
+   The original framework is developed by the `POSTECH Computer Graphics Lab <https://sites.google.com/view/shbaek/home>`_.
    Fork maintainer: Jinwoo Lee (``cinescope@kaist.ac.kr``).
 
 The repository identity is ``PADO Hologram``.

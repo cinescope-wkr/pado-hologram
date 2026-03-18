@@ -6,7 +6,7 @@ introduced in this repository state.
 
 .. note::
 
-   The original PADO framework is developed by the POSTECH Computer Graphics Lab.
+   The original PADO framework is developed by the `POSTECH Computer Graphics Lab <https://sites.google.com/view/shbaek/home>`_.
    This repository state is a forked, repository-maintained, holography-oriented
    version of PADO.
    Fork maintainer: Jinwoo Lee (``cinescope@kaist.ac.kr``).

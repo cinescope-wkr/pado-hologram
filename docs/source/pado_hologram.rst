@@ -10,7 +10,7 @@ a smaller and more maintainable PADO-native stack.
 
 .. note::
 
-   The original PADO framework is developed by the POSTECH Computer Graphics Lab.
+   The original PADO framework is developed by the `POSTECH Computer Graphics Lab <https://sites.google.com/view/shbaek/home>`_.
    This repository state is a forked, repository-maintained version maintained by
    Jinwoo Lee (``cinescope@kaist.ac.kr``).
    ``PADO Hologram`` refers to repository-maintained work layered on top of the

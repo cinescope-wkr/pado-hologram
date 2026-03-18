@@ -48,7 +48,7 @@ Let’s surf this [`파도`](https://ko.wikipedia.org/wiki/%ED%8C%8C%EB%8F%84) t
 > [!NOTE]
 > This repository should be understood as a forked, repository-maintained,
 > holography-oriented version of the original PADO project.
-> The original PADO framework is developed by the POSTECH Computer Graphics Lab.
+> The original PADO framework is developed by the [POSTECH Computer Graphics Lab](https://sites.google.com/view/shbaek/home).
 >
 > **Fork maintainer**: Jinwoo Lee  
 > **Maintainer contact**: cinescope@kaist.ac.kr
@@ -102,7 +102,7 @@ The current starting point for that upper layer already exists in this repositor
 ## Repository Updates
 
 > [!NOTE]
-> The original PADO framework is developed and maintained by the POSTECH Computer Graphics Lab.
+> The original PADO framework is developed and maintained by the [POSTECH Computer Graphics Lab](https://sites.google.com/view/shbaek/home).
 > This forked repository state is maintained by Jinwoo Lee, and the items below
 > should be described as fork-specific or repository-maintained contributions.
 
@@ -230,15 +230,6 @@ while still exposing the `pado` core API:
 - `PADO` core API reference
 - notebook examples
 - repository-maintained updates
-
-## About
-
-The original PADO framework is developed and maintained by the
-[POSTECH Computer Graphics Lab](http://cg.postech.ac.kr/).
-
-This repository state is maintained by Jinwoo Lee (`cinescope@kaist.ac.kr`) and is
-being shaped into `PADO Hologram`: a holography-oriented layer built on top of the
-original `PADO` optics core.
 
 ## License
 

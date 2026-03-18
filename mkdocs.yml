@@ -9,7 +9,20 @@ docs_dir: docs_mkdocs
 site_dir: site
 nav:
   - Home: index.md
-  - Vision: vision.md
-  - Getting Started: getting-started.md
-  - Architecture: architecture.md
-  - Contributing: contributing.md
+  - Guide:
+      - Installation: guide/installation.md
+      - Quickstart: guide/quickstart.md
+      - Repository Layout: guide/repository-layout.md
+  - Concepts:
+      - Architecture Overview: concepts/architecture.md
+      - Core vs Hologram: concepts/core-vs-hologram.md
+  - Workflows:
+      - Phase-Only CGH: workflows/phase-only-cgh.md
+      - Device Modeling: workflows/device-modeling.md
+      - Experiments and Hydra: workflows/experiments.md
+  - Reference:
+      - Module Reference Map: reference/modules.md
+      - Fork and License: reference/fork-and-license.md
+  - Community:
+      - Vision: community/vision.md
+      - Contributing: community/contributing.md
