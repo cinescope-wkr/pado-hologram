@@ -37,6 +37,19 @@ import torch
 import torch.nn.functional as F
 import os
 
+
+def _interpolate_spatial(
+    tensor: torch.Tensor,
+    *,
+    scale_factor: float,
+    mode: str,
+) -> torch.Tensor:
+    kwargs = {"scale_factor": scale_factor, "mode": mode}
+    if mode in {"linear", "bilinear", "bicubic", "trilinear"}:
+        kwargs["align_corners"] = False
+    return F.interpolate(tensor, **kwargs)
+
+
 class Light:
     """Light wave with complex field wavefront.
     
@@ -135,8 +148,8 @@ class Light:
         else:
             raise NotImplementedError('only zero padding supported')
         dim_list = list(self.dim)
-        dim_list[2] = dim_list[2] + pad_width[0] + pad_width[1]
-        dim_list[3] = dim_list[3] + pad_width[2] + pad_width[3]
+        dim_list[2] = dim_list[2] + pad_width[2] + pad_width[3]
+        dim_list[3] = dim_list[3] + pad_width[0] + pad_width[1]
         self.dim = tuple(dim_list)
 
     def set_real(self, real: torch.Tensor, c: Optional[int] = None) -> None:
@@ -523,13 +536,10 @@ class Light:
                 raise TypeError(f"Channel index c must be an integer, got {type(c)}")
             if c < 0 or c >= self.dim[1]:
                 raise IndexError(f"Channel index {c} out of bounds for tensor with {self.dim[1]} channels")
-            self.field.real[:, c, ...] = F.interpolate(self.field.real[:, c, ...], 
-                                                      scale_factor=scale_factor, mode=interp_mode)
-            self.field.imag[:, c, ...] = F.interpolate(self.field.imag[:, c, ...], 
-                                                      scale_factor=scale_factor, mode=interp_mode)
-        else:
-            self.field.real = F.interpolate(self.field.real, scale_factor=scale_factor, mode=interp_mode)
-            self.field.imag = F.interpolate(self.field.imag, scale_factor=scale_factor, mode=interp_mode)
+
+        resized_real = _interpolate_spatial(self.field.real, scale_factor=scale_factor, mode=interp_mode)
+        resized_imag = _interpolate_spatial(self.field.imag, scale_factor=scale_factor, mode=interp_mode)
+        self.field = torch.complex(resized_real, resized_imag)
         self.dim = (self.dim[0], self.dim[1], self.field.shape[2], self.field.shape[3])
 
     def resize(self, target_pitch: float, interp_mode: str = 'nearest') -> None:
@@ -657,6 +667,47 @@ class Light:
         """
         self.set_phase(torch.zeros_like(self.get_phase()))
 
+    def _generate_random_phase(
+        self,
+        std: float,
+        distribution: str,
+        shape: Optional[Tuple[int, ...]] = None,
+    ) -> torch.Tensor:
+        target_shape = self.dim if shape is None else shape
+
+        if distribution == 'uniform':
+            return (torch.rand(target_shape, device=self.device) - 0.5) * (2 * std)
+
+        if distribution == 'gaussian':
+            return torch.randn(target_shape, device=self.device) * std
+
+        if distribution == 'von_mises':
+            # Approximate von Mises sampling with rejection sampling around zero mean.
+            kappa = torch.tensor(1 / std, device=self.device)
+            u1 = torch.rand(target_shape, device=self.device)
+            u2 = torch.rand(target_shape, device=self.device)
+
+            a = 1 + torch.sqrt(1 + 4 * kappa**2)
+            b = (a - torch.sqrt(2 * a)) / (2 * kappa)
+            r = (1 + b**2) / (2 * b)
+
+            while True:
+                z = torch.cos(np.pi * u1)
+                f = (1 + r * z) / (r + z)
+                c_param = kappa * (r - f)
+
+                accept = c_param * (2 - c_param) - u2 > 0
+                if accept.all():
+                    break
+
+                mask = ~accept
+                u1[mask] = torch.rand_like(u1[mask])
+                u2[mask] = torch.rand_like(u2[mask])
+
+            return torch.sign(u2 - 0.5) * torch.arccos(f)
+
+        raise ValueError("distribution must be one of ['gaussian', 'uniform', 'von_mises']")
+
     def set_phase_random(self, std: float = np.pi/2, distribution: str = 'gaussian', c: Optional[int] = None) -> None:
         """Set random phase with specified distribution.
 
@@ -688,78 +739,22 @@ class Light:
         
         if distribution not in ['gaussian', 'uniform', 'von_mises']:
             raise ValueError("distribution must be one of ['gaussian', 'uniform', 'von_mises']")
-
-        # Check channel index if provided
         if c is not None:
             if not isinstance(c, int):
                 raise TypeError(f"Channel index c must be an integer, got {type(c)}")
             if c < 0 or c >= self.dim[1]:
                 raise IndexError(f"Channel index {c} out of bounds for tensor with {self.dim[1]} channels")
+            phase = self._generate_random_phase(
+                std,
+                distribution,
+                shape=(self.dim[0], self.dim[2], self.dim[3]),
+            )
+            amplitude = self.field[:, c, ...].abs().detach()
+            self.field[:, c, ...] = amplitude * torch.exp(phase * 1j)
+            return
 
-        # Determine which channels to process
-        channels = [c] if c is not None else range(self.dim[1])
-        
-        for channel in channels:
-            # Get the shape needed for this specific channel
-            if c is not None:
-                # For specific channel, we need [B, H, W] 
-                target_shape = (self.dim[0], self.dim[2], self.dim[3])
-            else:
-                # For all channels, we keep full tensor shape [B, Ch, H, W]
-                target_shape = self.dim
-            
-            if distribution == 'uniform':
-                # Create uniform random values between -std and std
-                if c is not None:
-                    phase = (torch.rand(target_shape, device=self.device) - 0.5) * (2 * std)
-                else:
-                    phase = (torch.rand(target_shape, device=self.device) - 0.5) * (2 * std)
-                
-            elif distribution == 'gaussian':
-                # Create Gaussian random values with std deviation
-                if c is not None:
-                    phase = torch.randn(target_shape, device=self.device) * std
-                else:
-                    phase = torch.randn(target_shape, device=self.device) * std
-                
-            elif distribution == 'von_mises':
-                # von Mises distribution implementation
-                # μ = 0 (mean direction)
-                # κ = 1/std (concentration parameter)
-                kappa = torch.tensor(1/std, device=self.device)
-                
-                if c is not None:
-                    u1 = torch.rand(target_shape, device=self.device)
-                    u2 = torch.rand(target_shape, device=self.device)
-                else:
-                    u1 = torch.rand(target_shape, device=self.device)
-                    u2 = torch.rand(target_shape, device=self.device)
-                
-                a = 1 + torch.sqrt(1 + 4 * kappa**2)
-                b = (a - torch.sqrt(2 * a)) / (2 * kappa)
-                r = (1 + b**2) / (2 * b)
-                
-                while True:
-                    z = torch.cos(np.pi * u1)
-                    f = (1 + r * z) / (r + z)
-                    c_param = kappa * (r - f)
-                    
-                    accept = c_param * (2 - c_param) - u2 > 0
-                    if accept.all():
-                        break
-                    
-                    mask = ~accept
-                    u1[mask] = torch.rand_like(u1[mask])
-                    u2[mask] = torch.rand_like(u2[mask])
-                
-                phase = torch.sign(u2 - 0.5) * torch.arccos(f)
-
-            if c is not None:
-                # For a specific channel, we need to correctly reshape the phase
-                # to match the expected shape in set_phase method
-                self.field[:, channel, ...] = self.field[:, channel, ...].abs() * torch.exp(phase * 1j)
-            else:
-                self.set_phase(phase)
+        phase = self._generate_random_phase(std, distribution)
+        self.set_phase(phase)
 
     def save(self, fn: str) -> None:
         """Save light field to file.
@@ -902,7 +897,11 @@ class Light:
                 # Get current phase
                 current_phase = self.get_phase()
                 # Generate random phase for specific batch
-                random_phase_tensor = self._generate_random_phase(std, distribution)
+                random_phase_tensor = self._generate_random_phase(
+                    std,
+                    distribution,
+                    shape=(1, self.dim[1], self.dim[2], self.dim[3]),
+                )
                 current_phase[batch_idx] = random_phase_tensor[0]
                 self.set_phase(current_phase)
             else:
@@ -1207,7 +1206,14 @@ class PolarizedLight(Light):
         Examples:
             >>> light_copy = light.clone()
         """
-        return PolarizedLight(self.dim, self.pitch, self.wvl, self.get_fieldX().clone(), self.get_fieldX().clone(), device=self.device)
+        return PolarizedLight(
+            self.dim,
+            self.pitch,
+            self.wvl,
+            self.get_fieldX().clone(),
+            self.get_fieldY().clone(),
+            device=self.device,
+        )
 
     def crop(self, crop_width: Tuple[int, int, int, int]) -> None:
         """Crop light wavefront.
@@ -1220,8 +1226,7 @@ class PolarizedLight(Light):
         """
         self.lightX.crop(crop_width)
         self.lightY.crop(crop_width)
-        
-        self.dim[2], self.dim[3] = self.lightX.dim[2], self.lightX.dim[3]
+        self.dim = self.lightX.dim
 
     def get_amplitude(self) -> torch.Tensor:
         """Return total amplitude of polarized field.
@@ -1395,7 +1400,7 @@ class PolarizedLight(Light):
         """
         self.lightX.magnify(scale_factor, interp_mode)
         self.lightY.magnify(scale_factor, interp_mode)
-        self.dim[2], self.dim[3] = self.lightX.dim[2], self.lightY.dim[3]
+        self.dim = self.lightX.dim
 
     def pad(self, pad_width: Tuple[int, int, int, int], padval: complex = 0) -> None:
         """Pad light field.

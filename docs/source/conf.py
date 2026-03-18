@@ -7,10 +7,10 @@ project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..
 sys.path.insert(0, project_root)
 
 # Project information
-project = 'PADO Documentation'
+project = 'PADO Hologram Documentation'
 copyright = f'{datetime.now().year}, Seung-Hwan Baek, Dong-Ha Shin, and contributors'
-author = 'Seung-Hwan Baek, Dong-Ha Shin, and contributors'
-release = '1.0.0'
+author = 'Seung-Hwan Baek, Dong-Ha Shin, Jinwoo Lee, and contributors'
+release = '1.0.1'
 
 # General configuration
 extensions = [
@@ -67,6 +67,7 @@ autodoc_default_options = {
 autodoc_member_order = 'bysource'
 autodoc_typehints = 'description'
 add_module_names = False
+autosummary_generate = True
 
 # Intersphinx mapping
 intersphinx_mapping = {
@@ -78,7 +79,7 @@ intersphinx_mapping = {
 
 # HTML output options
 html_theme = 'furo'
-html_title = 'PADO Documentation'
+html_title = 'PADO Hologram Documentation'
 html_static_path = ['_static']
 html_css_files = [
     'custom.css',
@@ -87,7 +88,7 @@ templates_path = ['_templates']
 
 # Furo theme options
 html_theme_options = {
-    "announcement": "Pytorch Automatic Differentiable Optics",
+    "announcement": "PADO Hologram: holography workflows built on top of the PADO optics core",
     "sidebar_hide_name": False,
 }
 

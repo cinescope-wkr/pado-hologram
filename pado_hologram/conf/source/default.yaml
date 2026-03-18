@@ -1,0 +1,7 @@
+batch: 1
+channels: 1
+height: 32
+width: 32
+pitch: 6.4e-6
+wvl: 5.32e-7
+device: cpu

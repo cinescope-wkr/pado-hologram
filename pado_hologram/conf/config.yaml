@@ -1,0 +1,11 @@
+defaults:
+  - _self_
+  - source: default
+  - propagation: asm
+  - target: flat
+  - slm: linear_lcos
+  - experiment: gs
+
+hydra:
+  run:
+    dir: .

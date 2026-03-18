@@ -1,10 +1,14 @@
 License
 ==========================
 
-PADO License
-------------------------------
+Repository License
+------------------
 
-PADO is licensed under the MIT License. This license allows you to:
+This repository remains under the MIT License inherited from the original PADO
+project. The maintained ``PADO Hologram`` repository direction does not change
+that license.
+
+The MIT license allows you to:
 
 - Use the software commercially
 - Modify the software
@@ -15,7 +19,7 @@ PADO is licensed under the MIT License. This license allows you to:
 The only requirement is that the license and copyright notice must be included in all copies or substantial portions of the software.
 
 Full License Text
---------------------------------
+-----------------
 
 MIT License
 
@@ -40,7 +44,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 Third-Party Licenses
---------------------------------
+--------------------
 
 PADO uses several third-party libraries. Their licenses are listed below:
 

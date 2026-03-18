@@ -1,7 +1,11 @@
 Citation
 ==============================
 
-If you use PADO in your research, please cite our work using the following BibTeX entry:
+If you use this repository in research, please cite the original PADO work as the
+core optics foundation. If your work specifically uses the maintained holography
+layer introduced here, cite ``PADO Hologram`` as well.
+
+Core citation:
 
 .. code-block:: bibtex
 
@@ -9,15 +13,33 @@ If you use PADO in your research, please cite our work using the following BibTe
       Author = {Seung-Hwan Baek, Dong-Ha Shin, Yujin Jeon, Seung-Woo Yoon, Eunsue Choi, Gawoon Ban, Hyunmo Kang},
       Year = {2025},
       Note = {https://github.com/shwbaek/pado},
-      Title = {Pado: Pytorch Automatic Differentiable Optics}
+   Title = {Pado: Pytorch Automatic Differentiable Optics}
    }
 
-You can also cite PADO in your text as:
+Holography-layer citation:
+
+.. code-block:: bibtex
+
+   @software{lee2026padohologram,
+      author = {Jinwoo Lee},
+      title = {PADO Hologram: Holography Workflows Built on Top of PADO},
+      year = {2026},
+      note = {https://github.com/cinescope-wkr/pado-hologram},
+      abstract = {Repository-maintained holography-oriented layer built on top of PADO, including DPAC, multi-plane workflows, and Hydra-based experiments}
+   }
+
+You can cite the core framework in text as:
 
    Baek et al. (2025) PADO: Pytorch Automatic Differentiable Optics
 
+Repository Note
+---------------
+
+This repository is documented as ``PADO Hologram`` but remains built on top of
+the original ``PADO`` package and citation identity.
+
 Citation Guidelines
-------------------------------
+-------------------
 
 1. **Academic Papers**
    
@@ -48,7 +70,7 @@ Citation Guidelines
    - Credit the original authors
 
 Contributing Authors
-------------------------------
+--------------------
 The following people have contributed to PADO:
 
 - Seung-Hwan Baek (shwbaek@postech.ac.kr) - Corresponding Author
@@ -62,6 +84,6 @@ The following people have contributed to PADO:
 If you have used PADO in your research and would like to be added to this list, please contact the maintainers through GitHub.
 
 Version History
-------------------------------
+---------------
 
-For information about specific versions and their features, please refer to our `GitHub releases <https://github.com/shwbaek/pado/releases>`_. 
+For information about maintained repository versions and their features, please refer to the `PADO Hologram GitHub releases <https://github.com/cinescope-wkr/pado-hologram/releases>`_.

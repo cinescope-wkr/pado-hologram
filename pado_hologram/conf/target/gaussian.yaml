@@ -1,0 +1,4 @@
+kind: gaussian
+value: 1.0
+sigma: 5.0
+normalize_mean: true

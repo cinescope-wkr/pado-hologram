@@ -41,6 +41,18 @@ from .light import Light
 from .material import Material
 
 
+def _interpolate_spatial(
+    tensor: torch.Tensor,
+    *,
+    scale_factor: float,
+    mode: str,
+) -> torch.Tensor:
+    kwargs = {"scale_factor": scale_factor, "mode": mode}
+    if mode in {"linear", "bilinear", "bicubic", "trilinear"}:
+        kwargs["align_corners"] = False
+    return F.interpolate(tensor, **kwargs)
+
+
 class OpticalElement:
     def __init__(self, dim: Tuple[int, int, int, int], pitch: float, wvl: float, 
                  field_change: Optional[torch.Tensor] = None, device: str = 'cpu', 
@@ -243,7 +255,7 @@ class OpticalElement:
 
         # Create a new dim tuple instead of modifying in-place
         new_dim = list(self.dim)
-        new_dim[2], new_dim[3] = new_dim[2]+pad_width[0]+pad_width[1], new_dim[3]+pad_width[2]+pad_width[3]
+        new_dim[2], new_dim[3] = new_dim[2]+pad_width[2]+pad_width[3], new_dim[3]+pad_width[0]+pad_width[1]
         self.dim = tuple(new_dim)
 
     def resize(self, target_pitch: float, interp_mode: str = 'nearest') -> None:
@@ -260,13 +272,13 @@ class OpticalElement:
             >>> element.resize(1e-6)  # Resize to 1μm pitch
         """
         scale_factor = self.pitch / target_pitch
-        # Create a new interpolated tensor instead of modifying in-place
-        resized_field_change = F.interpolate(self.field_change, scale_factor=scale_factor, mode=interp_mode)
-        self.field_change = resized_field_change
+        resized_real = _interpolate_spatial(self.field_change.real, scale_factor=scale_factor, mode=interp_mode)
+        resized_imag = _interpolate_spatial(self.field_change.imag, scale_factor=scale_factor, mode=interp_mode)
+        self.field_change = torch.complex(resized_real, resized_imag)
         
         # Create a new dim tuple instead of modifying in-place
         new_dim = list(self.dim)
-        new_dim[2], new_dim[3] = resized_field_change.shape[2], resized_field_change.shape[3]
+        new_dim[2], new_dim[3] = self.field_change.shape[2], self.field_change.shape[3]
         self.dim = tuple(new_dim)
         self.set_pitch(target_pitch)
 
@@ -620,8 +632,8 @@ def phase2height(phase_u: torch.Tensor, wvl: float, RI: float, minh: float = 0) 
     """Convert phase change to material height.
 
     Note that phase to height mapping is not one-to-one.
-    There exists an integer phase wrapping factor:
-        height = wvl/(RI-1) * (phase_u + i*2π), where i is integer
+    There exists an integer phase wrapping factor
+    ``height = wvl/(RI-1) * (phase_u + i*2π)``, where ``i`` is an integer.
     This function uses minimum height minh to constrain the conversion.
     Minimal height is chosen such that height is always >= minh.
 
@@ -746,7 +758,10 @@ class DOE(OpticalElement):
             >>> doe.set_diffraction_grating_1d(10e-6, 0, 500e-9)  # 10μm slits
             >>> doe.visualize()  # Shows 1D grating pattern
         """
-        slit_width_px = np.round(slit_width / self.pitch)
+        slit_width_px = int(np.round(slit_width / self.pitch))
+        if slit_width_px < 1:
+            raise ValueError(f"slit_width={slit_width} is too small for pitch={self.pitch} (slit_width_px={slit_width_px})")
+
         slit_space_px = slit_width_px
 
         dg = np.zeros((self.dim[2], self.dim[3]))
@@ -762,8 +777,9 @@ class DOE(OpticalElement):
             maxc = int(minc + slit_width_px)
 
             dg_copy[:, minc:maxc] = maxh
-        pc = torch.tensor(dg_copy.astype(np.float32), device=self.device).unsqueeze(0).unsqueeze(0)
-        self.set_phase_change(1j*pc)
+        # dg_copy is a height map in meters. Use height->phase conversion via material RI.
+        height = torch.tensor(dg_copy.astype(np.float32), device=self.device).unsqueeze(0).unsqueeze(0)
+        self.set_height(height, sync_phase=True)
 
     def set_diffraction_grating_2d(self, slit_width: float, minh: float, maxh: float) -> None:
         """Set the wavefront modulation as a 2D diffraction grating.
@@ -780,7 +796,10 @@ class DOE(OpticalElement):
             >>> doe.set_diffraction_grating_2d(10e-6, 0, 500e-9)  # 10μm slits
             >>> doe.visualize()  # Shows 2D grating pattern
         """
-        slit_width_px = np.round(slit_width / self.pitch)
+        slit_width_px = int(np.round(slit_width / self.pitch))
+        if slit_width_px < 1:
+            raise ValueError(f"slit_width={slit_width} is too small for pitch={self.pitch} (slit_width_px={slit_width_px})")
+
         slit_space_px = slit_width_px
 
         dg = np.zeros((self.dim[2], self.dim[3]))
@@ -800,8 +819,9 @@ class DOE(OpticalElement):
 
                 dg_copy[minr:maxr, minc:maxc] = maxh
 
-        pc = torch.tensor(dg_copy.astype(np.float32), device=self.device).unsqueeze(0).unsqueeze(0)
-        self.set_phase_change(pc)
+        # dg_copy is a height map in meters. Use height->phase conversion via material RI.
+        height = torch.tensor(dg_copy.astype(np.float32), device=self.device).unsqueeze(0).unsqueeze(0)
+        self.set_height(height, sync_phase=True)
 
     def set_Fresnel_lens(self, focal_length: float, wvl: float, shift_x: float = 0, shift_y: float = 0) -> None:
         """Set the wavefront modulation as a Fresnel lens.
@@ -1014,9 +1034,9 @@ class DOE(OpticalElement):
             >>> height = torch.ones((1,1,100,100)) * 500e-9
             >>> doe.set_height(height, sync_phase=True)
         """
-        self.height = height
-        if sync_phase:  
-            self.sync_phase_with_height()      
+        self.height = height.clone() if height is not None else None
+        if sync_phase:
+            self.sync_phase_with_height()
 
 
 class SLM(OpticalElement):
@@ -1055,7 +1075,7 @@ class SLM(OpticalElement):
         phase_w = wrap_phase(phase_u, stay_positive=False)
         self.set_phase_change(phase_w)
 
-    def set_amplitude_change(self, amplitude: torch.Tensor, wvl: float) -> None:
+    def set_amplitude_change(self, amplitude: torch.Tensor, wvl: Optional[float] = None) -> None:
         """Set amplitude modulation profile of the SLM.
 
         Args:
@@ -1066,10 +1086,11 @@ class SLM(OpticalElement):
             >>> amp = torch.ones((1,1,1024,1024)) * 0.8  # 80% transmission
             >>> slm.set_amplitude_change(amp, wvl=633e-9)
         """
-        self.wvl = wvl
+        if wvl is not None:
+            self.wvl = wvl
         super().set_amplitude_change(amplitude)
 
-    def set_phase_change(self, phase_change: torch.Tensor, wvl: float) -> None:
+    def set_phase_change(self, phase_change: torch.Tensor, wvl: Optional[float] = None) -> None:
         """Set phase modulation profile of the SLM.
 
         Args:
@@ -1080,7 +1101,8 @@ class SLM(OpticalElement):
             >>> phase = torch.ones((1,1,1024,1024)) * np.pi  # π phase shift
             >>> slm.set_phase_change(phase, wvl=633e-9)
         """
-        self.wvl = wvl
+        if wvl is not None:
+            self.wvl = wvl
         super().set_phase_change(phase_change)
         
         
@@ -1101,6 +1123,12 @@ class PolarizedSLM(OpticalElement):
         self.amplitude_change = torch.ones((dim[0], 1, dim[2], dim[3], 2), device=self.device)
         self.phase_change = torch.zeros((dim[0], 1, dim[2], dim[3], 2), device=self.device)
 
+    def get_amplitude_change(self) -> torch.Tensor:
+        return self.amplitude_change
+
+    def get_phase_change(self) -> torch.Tensor:
+        return self.phase_change
+
     def set_amplitude_change(self, amplitude: torch.Tensor, wvl: float) -> None:
         """Set amplitude change for both polarization components.
 
@@ -1112,8 +1140,10 @@ class PolarizedSLM(OpticalElement):
             >>> amp = torch.ones((1,1,1024,1024,2)) * 0.8  # 80% transmission for both polarizations
             >>> slm.set_amplitude_change(amp, wvl=633e-9)
         """
+        if amplitude.shape != self.amplitude_change.shape:
+            raise ValueError(f"Expected amplitude shape {self.amplitude_change.shape}, got {amplitude.shape}")
         self.wvl = wvl
-        super().set_amplitude_change(amplitude)
+        self.amplitude_change = amplitude.clone()
 
     def set_phase_change(self, phase_change: torch.Tensor, wvl: float) -> None:
         """Set phase change for both polarization components.
@@ -1126,8 +1156,10 @@ class PolarizedSLM(OpticalElement):
             >>> phase = torch.ones((1,1,1024,1024,2)) * np.pi  # π phase shift for both polarizations
             >>> slm.set_phase_change(phase, wvl=633e-9)
         """
+        if phase_change.shape != self.phase_change.shape:
+            raise ValueError(f"Expected phase shape {self.phase_change.shape}, got {phase_change.shape}")
         self.wvl = wvl
-        super().set_phase_change(phase_change)
+        self.phase_change = phase_change.clone()
 
     def set_amplitudeX_change(self, amplitude: torch.Tensor, wvl: float) -> None:
         """Set amplitude change for X polarization component.
@@ -1145,7 +1177,7 @@ class PolarizedSLM(OpticalElement):
         # Create new tensor instead of modifying in-place
         new_amp = amp.clone()
         new_amp[:,:,:,:,0] = amplitude
-        super().set_amplitude_change(new_amp)
+        self.amplitude_change = new_amp
 
     def set_amplitudeY_change(self, amplitude: torch.Tensor, wvl: float) -> None:
         """Set amplitude change for Y polarization component.
@@ -1163,7 +1195,7 @@ class PolarizedSLM(OpticalElement):
         # Create new tensor instead of modifying in-place
         new_amp = amp.clone()
         new_amp[:,:,:,:,1] = amplitude
-        super().set_amplitude_change(new_amp)
+        self.amplitude_change = new_amp
 
     def set_phaseX_change(self, phase_change: torch.Tensor, wvl: float) -> None:
         """Set phase change for X polarization component.
@@ -1181,7 +1213,7 @@ class PolarizedSLM(OpticalElement):
         # Create new tensor instead of modifying in-place
         new_phase = phase.clone()
         new_phase[:,:,:,:,0] = phase_change
-        super().set_phase_change(new_phase)
+        self.phase_change = new_phase
 
     def set_phaseY_change(self, phase_change: torch.Tensor, wvl: float) -> None:
         """Set phase change for Y polarization component.
@@ -1199,7 +1231,7 @@ class PolarizedSLM(OpticalElement):
         # Create new tensor instead of modifying in-place
         new_phase = phase.clone()
         new_phase[:,:,:,:,1] = phase_change
-        super().set_phase_change(new_phase)
+        self.phase_change = new_phase
 
     def get_phase_changeX(self) -> torch.Tensor:
         """Return phase change for X polarization component.

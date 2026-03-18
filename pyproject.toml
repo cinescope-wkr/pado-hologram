@@ -24,12 +24,16 @@ dependencies = [
     "numpy>=1.16.0",
     "matplotlib>=3.3.0",
     "scipy>=1.0.0",
+    "hydra-core>=1.3.0",
 ]
 
 [project.urls]
-Homepage = "https://github.com/shwbaek/pado"
-Repository = "https://github.com/shwbaek/pado.git"
-Documentation = "https://shwbaek.github.io/pado"
+Homepage = "https://github.com/cinescope-wkr/pado-hologram"
+Repository = "https://github.com/cinescope-wkr/pado-hologram.git"
+Documentation = "https://cinescope-wkr.github.io/pado-hologram/"
 
-[tool.setuptools]
-packages = ["pado"] 
+[tool.setuptools.packages.find]
+include = ["pado", "pado.*", "pado_hologram", "pado_hologram.*"]
+
+[tool.setuptools.package-data]
+pado_hologram = ["conf/*.yaml", "conf/**/*.yaml"]

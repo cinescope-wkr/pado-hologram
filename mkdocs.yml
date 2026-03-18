@@ -1,0 +1,15 @@
+site_name: PADO Hologram
+site_description: PADO Hologram documentation
+site_url: https://cinescope-wkr.github.io/pado-hologram/
+repo_url: https://github.com/cinescope-wkr/pado-hologram
+repo_name: cinescope-wkr/pado-hologram
+theme:
+  name: mkdocs
+docs_dir: docs_mkdocs
+site_dir: site
+nav:
+  - Home: index.md
+  - Vision: vision.md
+  - Getting Started: getting-started.md
+  - Architecture: architecture.md
+  - Contributing: contributing.md

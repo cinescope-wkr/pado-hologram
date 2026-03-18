@@ -1,38 +1,38 @@
-Installation Guide
-==========================
+Installation
+============
 
-Basic Installation
-------------------------------
+This documentation describes the maintained ``PADO Hologram`` repository state.
+The recommended installation path is to work from source so that both the core
+``pado`` package and the higher-level ``pado_hologram`` scaffold are available.
 
-You can install PADO via pip:
-
-.. code-block:: bash
-
-   pip install pado-optics
-
-Or via conda:
+Recommended Development Install
+-------------------------------
 
 .. code-block:: bash
 
-   conda install -c conda-forge pado-optics
+   git clone https://github.com/cinescope-wkr/pado-hologram.git
+   cd pado-hologram
+   pip install -e .
 
-Or install directly from GitHub:
+Package Layout
+--------------
 
-.. code-block:: bash
+- ``pado``: the core differentiable optics package
+- ``pado_hologram``: the higher-level holography layer
+- ``pado.display``: the current device-aware bridge for LCOS/SLM encoding workflows
+- ``pado_hologram.pipeline`` and related modules: orchestration built on top of the core package
+- ``pado_hologram.conf``: Hydra config package for reproducible experiments
 
-   pip install git+https://github.com/shwbaek/pado.git
+Minimal Import Check
+--------------------
 
-For development installation:
+.. code-block:: python
 
-.. code-block:: bash
+   import pado
+   import pado_hologram
 
-   git clone https://github.com/shwbaek/pado.git
-   cd pado
-
-Dependencies
-------------------------------
-
-PADO requires the following dependencies:
+Core Dependencies
+-----------------
 
 - Python 3.9 or higher
 - PyTorch 1.10.0 or higher
@@ -40,10 +40,16 @@ PADO requires the following dependencies:
 - Matplotlib 3.3.0 or higher
 - SciPy 1.0.0 or higher
 
-------------------------------
+Next Steps
+----------
 
-After installation, you can:
+- Read :doc:`pado_hologram` for the repository architecture direction
+- Explore :doc:`api/index` for the current ``pado`` core API
+- Use :doc:`examples/index` to start from CGH-oriented notebooks
 
-1. Check out the :doc:`api/index` for detailed documentation
-2. Explore the :doc:`examples/index` for practical examples
-3. Read the :doc:`license` for usage terms 
+Compatibility Note
+------------------
+
+The original upstream package and citation identity remain ``PADO``.
+This repository is documented as ``PADO Hologram`` to reflect its maintained,
+holography-oriented direction.

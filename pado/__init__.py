@@ -35,3 +35,4 @@ from .optical_element import *
 from .propagator import *
 from .material import *
 from .math import *
+from .display import *

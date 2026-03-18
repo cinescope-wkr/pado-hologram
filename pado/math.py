@@ -198,7 +198,7 @@ def calculate_ssim(img1: torch.Tensor, img2: torch.Tensor,
     
     img2 = img2.to(img1.device)
     window = gaussian_window(window_size, sigma).to(img1.device)
-    window = window.unsqueeze(0).unsqueeze(0)
+    window = window.unsqueeze(0).unsqueeze(0).repeat(img1.size(1), 1, 1, 1)
     
     # Constants for numerical stability
     C1 = (0.01 * data_range) ** 2

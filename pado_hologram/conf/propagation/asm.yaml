@@ -1,0 +1,10 @@
+mode: ASM
+distance: 0.0
+polar: non
+offset: [0.0, 0.0]
+linear: true
+band_limit: true
+b: 1.0
+sampling_ratio: 1
+vectorized: false
+steps: 100

@@ -14,6 +14,7 @@ pado.egg-info/
 
 # Sphinx documentation
 docs/build/
+site/
 
 # Virtual environments
 venv/
@@ -54,4 +55,7 @@ osx-64/
 
 channeldata.json
 
+# Local runtime artifacts
+.hydra/
+hydra_app.log
 
