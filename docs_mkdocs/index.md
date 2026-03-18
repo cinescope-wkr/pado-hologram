@@ -1,66 +1,104 @@
-# PADO Hologram
+---
+hide:
+  - toc
+---
 
-`PADO Hologram` is an open-source computer-generated holography framework built
-on top of [`PADO`](https://github.com/shwbaek/pado), the differentiable optics
-core originally developed by the
+<section class="pado-hero" markdown="1">
+
+<div class="pado-kicker">PADO Hologram</div>
+
+# Differentiable Holography, Documented as a Framework
+
+`PADO Hologram` is an open-source computer-generated holography framework built on top of
+[`PADO`](https://github.com/shwbaek/pado), the differentiable optics core originally developed by the
 [`POSTECH Computer Graphics Lab`](https://sites.google.com/view/shbaek/home).
 
-This repository should be understood as the maintained, CGH-focused evolution of
-that core: a leaner and more native stack for holography workflows, device-aware
-display modeling, and reproducible experimentation.
+This site is the high-level guide to the repository: what it is trying to become, how it is organized,
+which workflows already exist, and where contributors can help grow it next.
 
-The name `PADO` also comes from the Korean word
-[`파도`](https://ko.wikipedia.org/wiki/%ED%8C%8C%EB%8F%84), meaning `wave`. It
-points both to the optical waves we simulate and optimize, and to the broader
-community we want to build around them.
+[Get Started](guide/installation.md){ .md-button .md-button--primary }
+[Read the Vision](community/vision.md){ .md-button }
 
-## What This Documentation Covers
+</section>
 
-This MkDocs site is the high-level, self-contained guide to the repository. It
-is designed to answer questions such as:
+`PADO` also draws from the Korean word [`파도`](https://ko.wikipedia.org/wiki/%ED%8C%8C%EB%8F%84), meaning
+`wave`. The repository uses that name both literally, for the optical waves it simulates, and socially,
+for the momentum of a research community building reusable holography tools together.
 
-- What is `PADO Hologram` trying to be?
-- How is it different from upstream `PADO`?
-- Which modules exist today, and what do they do?
-- How do I run a first holography experiment?
-- Where do `display.py`, `pado_hologram`, Hydra, and the core optics API fit together?
+## What You Will Find Here
 
-For detailed API reference, the repository also keeps a Sphinx documentation
-tree. This MkDocs site focuses instead on architecture, workflows, repository
-direction, and contributor-facing context.
+This MkDocs site is meant to be self-contained and practical. It focuses on:
 
-## Current Scope
+<div class="grid cards" markdown="1">
 
-Today, `PADO Hologram` already includes:
+- **Repository direction**
 
-- phase-only hologram generation with compact Gerchberg-Saxton helpers
-- double-phase amplitude coding (DPAC)
-- device-aware LCOS/SLM encoding through `pado.display`
-- single-plane and multi-plane holography pipelines
-- Hydra-based experiment entry points
-- a documented path for extending the framework on top of the smaller `pado` optics core
+  ---
 
-## Suggested Reading Order
+  Why `PADO Hologram` exists, how it relates to upstream `PADO`, and what kind of long-term research stack it aims to become.
 
-If you are new to the repository, the best path is:
+- **Architecture and boundaries**
 
-1. Read [Vision](community/vision.md) to understand the long-term direction.
-2. Follow [Installation](guide/installation.md) and [Quickstart](guide/quickstart.md).
+  ---
+
+  Where the optics core ends, where `pado_hologram` begins, and why that split matters for maintainability.
+
+- **Workflow guides**
+
+  ---
+
+  Phase-only CGH, display-aware encoding, multi-plane composition, and Hydra-based experiment entry points.
+
+- **Reference maps**
+
+  ---
+
+  A human-readable map of the main modules before you dive into the code or the deeper Sphinx API reference.
+
+</div>
+
+## Current Capabilities
+
+<div class="grid cards" markdown="1">
+
+- **Phase-only baselines**
+
+  ---
+
+  Compact Gerchberg-Saxton helpers and pipeline composition for first-pass hologram generation.
+
+- **DPAC support**
+
+  ---
+
+  Double-phase amplitude coding as part of the growing higher-level CGH algorithm layer.
+
+- **Device-aware encoding**
+
+  ---
+
+  `pado.display` bridges ideal phase outputs to LUT-based LCOS/SLM behavior and quantized realization.
+
+- **Experiment orchestration**
+
+  ---
+
+  Hydra-backed runs for reproducibility without pushing configuration complexity into the lower-level optics core.
+
+</div>
+
+## Recommended Reading Path
+
+1. Start with [Vision](community/vision.md) for the repository’s long-term direction.
+2. Move to [Installation](guide/installation.md) and [Quickstart](guide/quickstart.md) for a first working run.
 3. Read [Architecture Overview](concepts/architecture.md) and [Core vs Hologram](concepts/core-vs-hologram.md).
-4. Continue to the workflow guides under [Workflows](workflows/phase-only-cgh.md).
-5. Use [Module Reference](reference/modules.md) as a roadmap to the current codebase.
+4. Continue with [Phase-Only CGH](workflows/phase-only-cgh.md), [Device Modeling](workflows/device-modeling.md), and [Experiments and Hydra](workflows/experiments.md).
+5. Use [Module Reference Map](reference/modules.md) when you want to jump into the codebase.
 
-## Who This Is For
+## Audience
 
-This repository is intended as a shared home for people working on holography
-and computational imaging from different backgrounds, including:
+`PADO Hologram` is intended as a shared home for people working on holography and computational imaging from backgrounds such as computer science, electrical engineering, optics, physics, perception science, and neighboring areas that care about wave-based computation and display.
 
-- computer science
-- electrical engineering
-- optics and photonics
-- physics
-- perception science
-- adjacent areas that care about display, imaging, and wave-based computation
-
-The aim is to move beyond fragmented one-off codebases and toward a maintained,
-reusable, and well-documented stack for differentiable holography.
+<div class="pado-mini-note" markdown="1">
+The goal is to move beyond fragmented one-off codebases and toward a maintained, reusable, and well-documented stack for [`differentiable holography`](https://github.com/cinescope-wkr/awesome-neural-holography).
+</div>

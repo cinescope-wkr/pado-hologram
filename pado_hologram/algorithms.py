@@ -9,6 +9,7 @@ from pado.light import Light
 from pado.math import wrap_phase
 
 from ._tensor import coerce_4d_complex, coerce_4d_real
+from .backends import checkerboard_phase_select
 from .config import PropagationSpec, SourceSpec
 from .losses import intensity_mse
 from .targets import IntensityTarget
@@ -30,19 +31,25 @@ class DPACResult:
     checkerboard_mask: torch.Tensor
     reconstructed_field: torch.Tensor
     normalized_amplitude: torch.Tensor
+    kernel_backend: str
+    backend_reason: str
 
 
 class DoublePhaseAmplitudeCoder:
     """Encode a complex target field with double-phase amplitude coding."""
 
-    def __init__(self, source: SourceSpec, *, stay_positive: bool = False) -> None:
+    def __init__(
+        self,
+        source: SourceSpec,
+        *,
+        stay_positive: bool = False,
+        backend: str = "auto",
+        warp_cache_dir: Optional[str] = None,
+    ) -> None:
         self.source = source
         self.stay_positive = stay_positive
-
-    def _checkerboard_mask(self) -> torch.Tensor:
-        rows = torch.arange(self.source.dim[2], device=self.source.device).view(1, 1, -1, 1)
-        cols = torch.arange(self.source.dim[3], device=self.source.device).view(1, 1, 1, -1)
-        return ((rows + cols) % 2 == 0).expand(self.source.dim)
+        self.backend = backend
+        self.warp_cache_dir = warp_cache_dir
 
     def encode_field(
         self,
@@ -68,8 +75,13 @@ class DoublePhaseAmplitudeCoder:
         alpha = torch.arccos(amplitude.clamp(0.0, 1.0))
         phase_a = wrap_phase(phase + alpha, stay_positive=self.stay_positive)
         phase_b = wrap_phase(phase - alpha, stay_positive=self.stay_positive)
-        mask = self._checkerboard_mask()
-        checkerboard_phase = torch.where(mask, phase_a, phase_b)
+        checkerboard_phase, mask, backend_selection = checkerboard_phase_select(
+            phase_a,
+            phase_b,
+            backend=self.backend,
+            device=self.source.device,
+            warp_cache_dir=self.warp_cache_dir,
+        )
         reconstructed_field = 0.5 * (torch.exp(1j * phase_a) + torch.exp(1j * phase_b))
 
         return DPACResult(
@@ -79,6 +91,8 @@ class DoublePhaseAmplitudeCoder:
             checkerboard_mask=mask,
             reconstructed_field=reconstructed_field.to(torch.cfloat),
             normalized_amplitude=amplitude,
+            kernel_backend=backend_selection.resolved,
+            backend_reason=backend_selection.reason,
         )
 
     def encode_target(

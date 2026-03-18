@@ -1,0 +1,63 @@
+:root {
+  --pado-hero-bg:
+    radial-gradient(circle at top left, rgba(68, 138, 255, 0.22), transparent 34%),
+    radial-gradient(circle at top right, rgba(38, 198, 218, 0.18), transparent 26%),
+    linear-gradient(180deg, #07111f 0%, #0d1b2a 100%);
+  --pado-hero-fg: #f5fbff;
+}
+
+.md-typeset .pado-hero {
+  background: var(--pado-hero-bg);
+  border-radius: 1rem;
+  color: var(--pado-hero-fg);
+  margin: 0 0 1.5rem;
+  overflow: hidden;
+  padding: 2rem;
+}
+
+.md-typeset .pado-hero h1,
+.md-typeset .pado-hero h2,
+.md-typeset .pado-hero p,
+.md-typeset .pado-hero a {
+  color: inherit;
+}
+
+.md-typeset .pado-hero p {
+  max-width: 48rem;
+}
+
+.md-typeset .pado-kicker {
+  color: rgba(245, 251, 255, 0.72);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  margin-bottom: 0.6rem;
+  text-transform: uppercase;
+}
+
+.md-typeset .grid.cards > ul > li,
+.md-typeset .grid.cards > ol > li {
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  border-radius: 0.9rem;
+}
+
+.md-typeset .grid.cards p:last-child {
+  margin-bottom: 0;
+}
+
+.md-typeset .pado-section-intro {
+  color: var(--md-default-fg-color--light);
+  font-size: 1.05rem;
+  max-width: 44rem;
+}
+
+.md-typeset .pado-mini-note {
+  border-left: 3px solid var(--md-accent-fg-color);
+  color: var(--md-default-fg-color--light);
+  margin: 1rem 0;
+  padding-left: 1rem;
+}
+
+.md-typeset .md-button {
+  border-radius: 999px;
+}

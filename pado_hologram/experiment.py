@@ -86,6 +86,7 @@ def run_experiment(cfg: DictConfig | Mapping[str, Any]) -> ExperimentSummary:
     propagation = build_propagation_from_config(mapping["propagation"])
     target = build_target_from_config(mapping["target"], source)
     experiment_cfg = mapping["experiment"]
+    backend_cfg = mapping.get("backend", {"name": "auto", "warp_cache_dir": None})
     method = str(experiment_cfg["method"])
 
     if method == "gs":
@@ -103,7 +104,11 @@ def run_experiment(cfg: DictConfig | Mapping[str, Any]) -> ExperimentSummary:
         slm_cfg = mapping["slm"]
         lut = build_lut_from_config(slm_cfg)
         slm = PhaseOnlyLCOSSLM(source, lut)
-        coder = DoublePhaseAmplitudeCoder(source)
+        coder = DoublePhaseAmplitudeCoder(
+            source,
+            backend=str(backend_cfg.get("name", "auto")),
+            warp_cache_dir=backend_cfg.get("warp_cache_dir"),
+        )
         dpac = coder.encode_target(target, normalize_amplitude=True)
         pipeline = HologramPipeline(source, propagation, slm=slm)
         forward = pipeline.forward_phase(dpac.checkerboard_phase, target=target)
@@ -114,6 +119,8 @@ def run_experiment(cfg: DictConfig | Mapping[str, Any]) -> ExperimentSummary:
         }
         extras = {
             "phase_shape": tuple(dpac.checkerboard_phase.shape),
+            "kernel_backend": dpac.kernel_backend,
+            "backend_reason": dpac.backend_reason,
         }
         return ExperimentSummary(method=method, metrics=metrics, extras=extras)
 

@@ -3,6 +3,10 @@
 This page gives a compact, self-contained path from installation to a first CGH
 run.
 
+!!! note
+
+    The examples below are intentionally small. Their job is to show how the repository is layered, not to present the final word on hologram quality or benchmarking.
+
 ## 1. Import the Main Layers
 
 ```python
@@ -34,6 +38,13 @@ You can also run the current DPAC path:
 
 ```bash
 python -m pado_hologram.hydra_app experiment=dpac target=gaussian
+```
+
+If you have installed the optional Warp dependency, you can also request the
+Warp-backed custom-kernel path explicitly:
+
+```bash
+python -m pado_hologram.hydra_app experiment=dpac target=gaussian backend=warp
 ```
 
 ## 3. Use the Core API Directly

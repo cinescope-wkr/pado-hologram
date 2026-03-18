@@ -4,6 +4,7 @@ defaults:
   - propagation: asm
   - target: flat
   - slm: linear_lcos
+  - backend: auto
   - experiment: gs
 
 hydra:

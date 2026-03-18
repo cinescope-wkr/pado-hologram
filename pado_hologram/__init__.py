@@ -9,6 +9,14 @@ from .algorithms import (
     GerchbergSaxtonPhaseOptimizer,
     GerchbergSaxtonResult,
 )
+from .backends import (
+    DEFAULT_WARP_CACHE_DIR,
+    KernelBackendSelection,
+    SUPPORTED_KERNEL_BACKENDS,
+    checkerboard_phase_select,
+    resolve_kernel_backend,
+    warp_checkerboard_mask,
+)
 from .config import PropagationSpec, SourceSpec
 from .experiment import ExperimentSummary, run_experiment
 from .losses import (
@@ -42,16 +50,21 @@ __all__ = [
     "MAINTAINER_EMAIL",
     "__version__",
     "DPACResult",
+    "DEFAULT_WARP_CACHE_DIR",
     "DoublePhaseAmplitudeCoder",
     "GerchbergSaxtonPhaseOptimizer",
     "GerchbergSaxtonResult",
+    "KernelBackendSelection",
     "PropagationSpec",
     "SourceSpec",
+    "SUPPORTED_KERNEL_BACKENDS",
     "amplitude_mse",
+    "checkerboard_phase_select",
     "intensity_mse",
     "multi_plane_intensity_mse",
     "multi_plane_reconstruction_metrics",
     "reconstruction_metrics",
+    "resolve_kernel_backend",
     "HologramForwardResult",
     "HologramPipeline",
     "MultiPlaneHologramForwardResult",
@@ -62,6 +75,7 @@ __all__ = [
     "IntensityTarget",
     "MultiPlaneIntensityTarget",
     "normalize_mean_intensity",
+    "warp_checkerboard_mask",
     "ExperimentSummary",
     "run_experiment",
 ]

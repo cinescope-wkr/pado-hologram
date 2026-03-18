@@ -66,6 +66,7 @@ Current Starting Point
 
 - ``pado.display`` is the first device-aware bridge from ideal phase targets to LCOS/SLM-oriented encoding.
 - ``pado_hologram`` is now an importable package with concrete modules for source/propagation specs, device encoding, targets, losses, pipelines, and phase-only optimization.
+- ``pado_hologram.backends`` now includes an optional `NVIDIA Warp <https://github.com/NVIDIA/warp>`_ path for custom holography kernels, starting from the DPAC checkerboard composition layer.
 - Documentation now treats this as an explicit architectural direction rather than an implicit fork-only idea.
 
 Current Modules
@@ -74,6 +75,7 @@ Current Modules
 The initial ``pado_hologram`` module set is:
 
 - ``pado_hologram.config`` for source and propagation specifications
+- ``pado_hologram.backends`` for optional custom-kernel backends such as `NVIDIA Warp <https://github.com/NVIDIA/warp>`_
 - ``pado_hologram.slm`` for phase-only LCOS/SLM encoding helpers
 - ``pado_hologram.targets`` for reconstruction targets
 - ``pado_hologram.losses`` for intensity and amplitude losses plus reconstruction metrics
@@ -91,6 +93,20 @@ The first building blocks planned for ``PADO Hologram`` are:
 - optimization helpers for hologram generation experiments
 - hardware-aware abstractions kept separate from the optics core
 - experiment configuration layers for reproducible holography pipelines
+
+Optional `NVIDIA Warp <https://github.com/NVIDIA/warp>`_ Layer
+--------------------------------------------------------------
+
+The repository now includes an optional `NVIDIA Warp <https://github.com/NVIDIA/warp>`_
+integration. Its intended significance is narrow and practical:
+
+- not to replace the full ``pado`` propagation stack
+- not to over-claim wholesale acceleration
+- to create a maintainable place for future custom holography kernels
+
+The first integration point is the DPAC checkerboard kernel path. That gives the
+project a real Warp-backed starting point while keeping the core optics engine
+PyTorch-first.
 
 Contributor Welcome
 -------------------

@@ -18,6 +18,7 @@ Our Contributions
 
 - Added ``pado.display`` for LCOS/SLM-oriented phase encoding workflows.
 - Added robust ``pado_hologram`` modules for configuration, SLM/device modeling, targets, losses, single-plane and multi-plane pipelines, DPAC, and Gerchberg-Saxton optimization.
+- Added an optional `NVIDIA Warp <https://github.com/NVIDIA/warp>`_ backend layer for custom holography kernels, starting from the DPAC checkerboard path rather than presenting Warp as a full propagation rewrite.
 - Added a Hydra-driven experiment layer and packaged config tree for reproducible holography runs.
 - Added regression tests that cover the new display module and recent stability fixes.
 - Updated the README and Sphinx documentation so these additions are visible from the main navigation.

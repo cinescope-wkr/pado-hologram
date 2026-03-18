@@ -6,15 +6,19 @@
 <h3 align="center">An open-source computer-generated holography framework built on top of PADO</h3>
 
 <p align="center">
+  <a href="#overview">Overview</a> •
   <a href="https://cinescope-wkr.github.io/pado-hologram/">Documentation</a> •
   <a href="#getting-started">Getting Started</a> •
   <a href="#architecture">Architecture</a> •
-  <a href="#examples">Examples</a> •
-  <a href="#contributing">Contributing</a> •
+  <a href="#nvidia-warp-backend">NVIDIA Warp Backend</a> •
   <a href="#pado-hologram">PADO Hologram</a> •
   <a href="#pado-core-api">PADO Core API</a> •
+  <a href="#examples">Examples</a> •
+  <a href="#contributing">Contributing</a> •
   <a href="#repository-updates">Repository Updates</a> •
-  <a href="#license">License</a>
+  <a href="#fork-notice">Fork Notice</a> •
+  <a href="#license">License</a> •
+  <a href="#citation">Citation</a>
 </p>
 
 ---
@@ -30,11 +34,16 @@ The underlying optics engine still lives in the `pado` package for compatibility
 but this repository should be understood as `PADO Hologram` in its current
 maintained form.
 
+This repository state is maintained by Jinwoo Lee (`cinescope@kaist.ac.kr`) and
+is being shaped into a clearer, longer-lived home for
+[`differentiable holography`](https://github.com/cinescope-wkr/awesome-neural-holography).
+
 The name draws from the Korean word [`파도`](https://ko.wikipedia.org/wiki/%ED%8C%8C%EB%8F%84), meaning `wave`.
 It reflects both the physical waves we manipulate and the collective momentum of
 the researchers who work on them.
 
-We want this repository to be a unified home for differentiable holography:
+We want this repository to be a unified home for
+[`differentiable holography`](https://github.com/cinescope-wkr/awesome-neural-holography):
 a place where physicists, computer scientists, electrical engineers, optical engineers,
 perception researchers, and curious builders can move beyond fragmented one-off
 efforts and build together.
@@ -42,89 +51,6 @@ efforts and build together.
 Let’s surf this [`파도`](https://ko.wikipedia.org/wiki/%ED%8C%8C%EB%8F%84) together.
 
 ---
-
-## Fork Notice
-
-> [!NOTE]
-> This repository should be understood as a forked, repository-maintained,
-> holography-oriented version of the original PADO project.
-> The original PADO framework is developed by the [POSTECH Computer Graphics Lab](https://sites.google.com/view/shbaek/home).
->
-> **Fork maintainer**: Jinwoo Lee  
-> **Maintainer contact**: cinescope@kaist.ac.kr
-
-## Naming Note
-
-- Project and repository identity: `PADO Hologram`
-- Core optics package kept for compatibility: `pado`
-- Higher-level holography namespace reserved in this repository: `pado_hologram`
-- `PADO` comes from the Korean word [`파도`](https://ko.wikipedia.org/wiki/%ED%8C%8C%EB%8F%84), meaning `wave`
-
-## PADO Hologram
-
-`PADO Hologram` is where we want the repository to grow:
-
-- computer-generated holography workflows
-- SLM-aware phase optimization
-- device-oriented display encoding
-- future setup orchestration and hardware-aware layers
-
-This lets us keep `pado` as a compact optics core while clearly separating the
-larger holography stack from the lower-level simulation primitives.
-
-It also reflects a broader goal: not just a code release, but a place where the
-field can gather around common abstractions, reusable tools, and a healthier
-open research culture.
-
-The first robust module set is already in place:
-
-- `pado_hologram.config` for source and propagation specifications
-- `pado_hologram.slm` for phase-only LCOS/SLM encoding
-- `pado_hologram.targets` for reconstruction targets
-- `pado_hologram.losses` for intensity/amplitude losses and metrics
-- `pado_hologram.pipeline` for source -> SLM -> propagation -> evaluation orchestration
-- `pado_hologram.algorithms` for compact hologram-generation algorithms such as Gerchberg-Saxton and DPAC
-- `pado_hologram.experiment` and `pado_hologram.hydra_app` for Hydra-friendly experiment execution
-
-## Architecture
-
-The intended role split is:
-
-- `PADO`: differentiable optics core for light fields, optical elements, propagation, materials, and numerical helpers
-- `PADO Hologram`: CGH workflows, SLM/display abstractions, optimization utilities, and future experiment orchestration
-
-The current starting point for that upper layer already exists in this repository:
-
-- `pado.display` provides LCOS/SLM-oriented LUT encoding and phase-to-field conversion
-- `pado_hologram` now exposes concrete modules for configs, device encoding, targets, losses, multi-plane orchestration, DPAC/GS algorithms, and Hydra-based experiment entry points
-- the documentation now treats this direction as the main repository identity instead of a side note
-
-## Repository Updates
-
-> [!NOTE]
-> The original PADO framework is developed and maintained by the [POSTECH Computer Graphics Lab](https://sites.google.com/view/shbaek/home).
-> This forked repository state is maintained by Jinwoo Lee, and the items below
-> should be described as fork-specific or repository-maintained contributions.
-
-**Our contributions in this repository update**:
-
-- Added `pado.display` for LCOS/SLM-oriented phase encoding workflows with `LCOSLUT`, `lcos_encode_phase`, and `slm_light_from_phase`.
-- Added robust `pado_hologram` modules for configuration, SLM/device handling, targets, losses, single-plane and multi-plane pipelines, DPAC, and Gerchberg-Saxton optimization.
-- Added a Hydra-friendly experiment layer and packaged config tree for reproducible holography runs.
-- Stabilized core tensor-shape handling across `Light`, `OpticalElement`, `SLM`, and polarization-aware paths.
-- Expanded regression tests to cover the new display module and recently fixed stability issues.
-- Reframed the README and Sphinx documentation around the `PADO Hologram` repository identity.
-
-**Stability fixes in this update**:
-
-- Fixed `pad()` dimension bookkeeping so metadata stays aligned with the underlying tensor shape.
-- Fixed complex-field resize and magnification paths used by `Light` and `OpticalElement`.
-- Fixed LCOS phase wrapping so LUTs using `[0, 2π]` and `[-π, π]` conventions both encode target phase sanely.
-- Fixed `Light.load_image(..., random_phase=True, batch_idx=...)` for single-batch random phase injection.
-- Fixed `PolarizedLight.clone()`, `PolarizedLight.crop()`, and `PolarizedLight.magnify()`.
-- Fixed `SLM.set_lens()` to work with the current wavelength-managed setter path.
-- Fixed multi-channel `calculate_ssim()` support.
-- Fixed `PolarizedSLM` so polarization-specific amplitude and phase state are tracked consistently.
 
 ## Getting Started
 
@@ -134,6 +60,12 @@ For this maintained repository state, the recommended path is to work from sourc
 git clone https://github.com/cinescope-wkr/pado-hologram.git
 cd pado-hologram
 pip install -e .
+```
+
+Optional [`NVIDIA Warp`](https://github.com/NVIDIA/warp) support for custom holography kernels:
+
+```bash
+pip install -r requirements-extra.txt
 ```
 
 This repository keeps the core optics import path as `pado` and also exposes the
@@ -162,7 +94,85 @@ For reproducible runs, the package also exposes a Hydra app:
 ```bash
 python -m pado_hologram.hydra_app experiment=gs
 python -m pado_hologram.hydra_app experiment=dpac target=gaussian
+python -m pado_hologram.hydra_app experiment=dpac target=gaussian backend=warp
 ```
+
+## Documentation
+
+The documentation is now organized around the `PADO Hologram` repository identity
+while still exposing the `pado` core API:
+
+- landing page and architecture direction
+- installation and package layout
+- `PADO` core API reference
+- notebook examples
+- repository-maintained updates
+
+The main documentation site lives at:
+<https://cinescope-wkr.github.io/pado-hologram/>
+
+## Architecture
+
+The intended role split is:
+
+- `PADO`: differentiable optics core for light fields, optical elements, propagation, materials, and numerical helpers
+- `PADO Hologram`: CGH workflows, SLM/display abstractions, optimization utilities, and future experiment orchestration
+
+The current starting point for that upper layer already exists in this repository:
+
+- `pado.display` provides LCOS/SLM-oriented LUT encoding and phase-to-field conversion
+- `pado_hologram` now exposes concrete modules for configs, device encoding, targets, losses, multi-plane orchestration, DPAC/GS algorithms, and Hydra-based experiment entry points
+- `pado_hologram.backends` now exposes an optional [`NVIDIA Warp`](https://github.com/NVIDIA/warp) path for custom holography kernels without forcing a full propagation rewrite
+- the documentation now treats this direction as the main repository identity instead of a side note
+
+## NVIDIA Warp Backend
+
+`PADO Hologram` now includes an optional [`NVIDIA Warp`](https://github.com/NVIDIA/warp)
+integration for custom holography kernels.
+
+The significance of this integration is deliberate:
+
+- it is **not** presented as a full replacement for `pado` propagation
+- it is **not** a claim that the entire optics stack has moved away from PyTorch
+- it **is** the start of a more maintainable custom-kernel layer for future holography research
+
+In other words, Warp matters here less as a blanket “make everything faster”
+story and more as a safer foundation for the kinds of bespoke kernels that CGH
+research often accumulates over time.
+
+Current scope:
+
+- optional backend selection through `backend=torch|warp|auto`
+- first integration in the DPAC checkerboard custom-kernel path
+- safe Warp cache handling when `WARP_CACHE_DIR` is not already set
+- PyTorch propagation remains the default core path
+
+## PADO Hologram
+
+`PADO Hologram` is where we want the repository to grow:
+
+- computer-generated holography workflows
+- SLM-aware phase optimization
+- device-oriented display encoding
+- future setup orchestration and hardware-aware layers
+
+This lets us keep `pado` as a compact optics core while clearly separating the
+larger holography stack from the lower-level simulation primitives.
+
+It also reflects a broader goal: not just a code release, but a place where the
+field can gather around common abstractions, reusable tools, and a healthier
+open research culture.
+
+The first robust module set is already in place:
+
+- `pado_hologram.config` for source and propagation specifications
+- `pado_hologram.backends` for optional custom-kernel backends such as [`NVIDIA Warp`](https://github.com/NVIDIA/warp)
+- `pado_hologram.slm` for phase-only LCOS/SLM encoding
+- `pado_hologram.targets` for reconstruction targets
+- `pado_hologram.losses` for intensity/amplitude losses and metrics
+- `pado_hologram.pipeline` for source -> SLM -> propagation -> evaluation orchestration
+- `pado_hologram.algorithms` for compact hologram-generation algorithms such as Gerchberg-Saxton and DPAC
+- `pado_hologram.experiment` and `pado_hologram.hydra_app` for Hydra-friendly experiment execution
 
 ## PADO Core API
 
@@ -220,16 +230,48 @@ Good areas to help with:
 
 See [CONTRIBUTING.md](./CONTRIBUTING.md) for the contributor-facing overview.
 
-## Documentation
+## Repository Updates
 
-The documentation is now organized around the `PADO Hologram` repository identity
-while still exposing the `pado` core API:
+> [!NOTE]
+> The original PADO framework is developed and maintained by the [POSTECH Computer Graphics Lab](https://sites.google.com/view/shbaek/home).
+> This forked repository state is maintained by Jinwoo Lee, and the items below
+> should be described as fork-specific or repository-maintained contributions.
 
-- landing page and architecture direction
-- installation and package layout
-- `PADO` core API reference
-- notebook examples
-- repository-maintained updates
+**Our contributions in this repository update**:
+
+- Added `pado.display` for LCOS/SLM-oriented phase encoding workflows with `LCOSLUT`, `lcos_encode_phase`, and `slm_light_from_phase`.
+- Added robust `pado_hologram` modules for configuration, SLM/device handling, targets, losses, single-plane and multi-plane pipelines, DPAC, and Gerchberg-Saxton optimization.
+- Added an optional [`NVIDIA Warp`](https://github.com/NVIDIA/warp) backend layer for custom holography kernels, starting with the DPAC checkerboard path rather than a full propagation rewrite.
+- Added a Hydra-friendly experiment layer and packaged config tree for reproducible holography runs.
+- Stabilized core tensor-shape handling across `Light`, `OpticalElement`, `SLM`, and polarization-aware paths.
+- Expanded regression tests to cover the new display module and recently fixed stability issues.
+- Reframed the README and Sphinx documentation around the `PADO Hologram` repository identity.
+
+**Stability fixes in this update**:
+
+- Fixed `pad()` dimension bookkeeping so metadata stays aligned with the underlying tensor shape.
+- Fixed complex-field resize and magnification paths used by `Light` and `OpticalElement`.
+- Fixed LCOS phase wrapping so LUTs using `[0, 2π]` and `[-π, π]` conventions both encode target phase sanely.
+- Fixed `Light.load_image(..., random_phase=True, batch_idx=...)` for single-batch random phase injection.
+- Fixed `PolarizedLight.clone()`, `PolarizedLight.crop()`, and `PolarizedLight.magnify()`.
+- Fixed `SLM.set_lens()` to work with the current wavelength-managed setter path.
+- Fixed multi-channel `calculate_ssim()` support.
+- Fixed `PolarizedSLM` so polarization-specific amplitude and phase state are tracked consistently.
+
+## Fork Notice
+
+> [!NOTE]
+> This repository should be understood as a forked, repository-maintained,
+> holography-oriented version of the original PADO project.
+> The original PADO framework is developed by the [POSTECH Computer Graphics Lab](https://sites.google.com/view/shbaek/home).
+>
+> **Fork maintainer**: Jinwoo Lee  
+> **Maintainer contact**: cinescope@kaist.ac.kr
+>
+> **Naming note**
+> - Project and repository identity: `PADO Hologram`
+> - Core optics package kept for compatibility: `pado`
+> - Higher-level holography namespace reserved in this repository: `pado_hologram`
 
 ## License
 

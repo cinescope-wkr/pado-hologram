@@ -14,6 +14,21 @@ Recommended Development Install
    cd pado-hologram
    pip install -e .
 
+Optional `NVIDIA Warp <https://github.com/NVIDIA/warp>`_ Support
+----------------------------------------------------------------
+
+If you want to enable the optional Warp-backed custom-kernel path in
+``pado_hologram``:
+
+.. code-block:: bash
+
+   pip install -r requirements-extra.txt
+
+This optional layer is currently aimed at custom holography kernels rather than
+as a full replacement for the PyTorch propagation stack in ``pado``.
+If ``WARP_CACHE_DIR`` is not already set, the repository uses a writable
+temporary cache directory for Warp kernel compilation.
+
 Package Layout
 --------------
 

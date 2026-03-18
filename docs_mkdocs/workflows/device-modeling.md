@@ -2,6 +2,10 @@
 
 This page explains where device-aware modeling currently lives.
 
+!!! note
+
+    Device modeling is deliberately introduced as a separate layer so that ideal optics simulation and practical display behavior do not get collapsed into the same abstraction too early.
+
 ## Why Device Modeling Matters
 
 An ideal phase pattern is not the same thing as a realizable display pattern.

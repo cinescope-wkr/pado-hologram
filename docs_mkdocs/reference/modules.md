@@ -15,6 +15,7 @@ important repository concepts currently live.
 ## `pado_hologram` Modules
 
 - `pado_hologram.config`: source and propagation specifications
+- `pado_hologram.backends`: optional custom-kernel backend helpers, including [`NVIDIA Warp`](https://github.com/NVIDIA/warp)
 - `pado_hologram.targets`: target intensity representations
 - `pado_hologram.losses`: reconstruction losses and metrics
 - `pado_hologram.slm`: framework-level LCOS/SLM helpers

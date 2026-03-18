@@ -3,6 +3,10 @@
 `PADO Hologram` is structured as a layered repository rather than a monolithic
 framework.
 
+!!! abstract
+
+    Think of the repository as two cooperating layers: a smaller wave-optics engine and a higher-level CGH framework built on top of it.
+
 ## The Main Split
 
 - `pado`: the optics core
@@ -36,6 +40,19 @@ such as [`holotorch`](https://github.com/facebookresearch/holotorch) made clear:
 
 The goal here is not to clone those stacks, but to rebuild the useful ideas in a
 smaller, clearer, and more maintainable form on top of `PADO`.
+
+## Optional [`NVIDIA Warp`](https://github.com/NVIDIA/warp) Layer
+
+`PADO Hologram` also now includes an optional [`NVIDIA Warp`](https://github.com/NVIDIA/warp) integration.
+
+The intended role of Warp here is specific:
+
+- not to replace every propagation path
+- not to force the optics core away from PyTorch
+- to provide a maintainable home for future custom holography kernels
+
+The first integration point is the DPAC checkerboard kernel path. That makes the
+current Warp layer meaningful without overstating what has already been moved.
 
 ## Current End-to-End Path
 

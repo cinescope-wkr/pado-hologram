@@ -3,10 +3,41 @@ site_description: PADO Hologram documentation
 site_url: https://cinescope-wkr.github.io/pado-hologram/
 repo_url: https://github.com/cinescope-wkr/pado-hologram
 repo_name: cinescope-wkr/pado-hologram
+edit_uri: edit/main/docs_mkdocs/
 theme:
-  name: mkdocs
+  name: material
+  language: en
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.top
+    - toc.follow
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+  palette:
+    - scheme: default
+      primary: blue grey
+      accent: cyan
 docs_dir: docs_mkdocs
 site_dir: site
+plugins:
+  - search
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - footnotes
+  - tables
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.tabbed:
+      alternate_style: true
+extra_css:
+  - assets/stylesheets/extra.css
 nav:
   - Home: index.md
   - Guide:

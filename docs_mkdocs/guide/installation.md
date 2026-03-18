@@ -2,6 +2,10 @@
 
 This page explains how to install and verify `PADO Hologram` from source.
 
+!!! note
+
+    The repository is currently designed to be used from source rather than as a pre-packaged release.
+
 ## Recommended Setup
 
 The repository is currently intended to be used from source:
@@ -16,6 +20,18 @@ This installs:
 
 - the original optics core under the import path `pado`
 - the higher-level holography package under the import path `pado_hologram`
+
+## Optional [`NVIDIA Warp`](https://github.com/NVIDIA/warp) Support
+
+If you want to enable the experimental Warp-backed custom-kernel path:
+
+```bash
+pip install -r requirements-extra.txt
+```
+
+This optional dependency is currently intended for `pado_hologram` custom
+holography kernels. It is not presented as a full replacement for the PyTorch
+propagation stack in `pado`.
 
 ## Documentation Dependencies
 
@@ -52,6 +68,10 @@ Minimal experiment check:
 python -m pado_hologram.hydra_app experiment=gs
 python -m pado_hologram.hydra_app experiment=dpac target=gaussian
 ```
+
+!!! tip
+
+    If you only want to verify that the framework imports and the smallest holography paths run, these two Hydra commands are enough for a quick sanity check.
 
 ## Package Layout
 

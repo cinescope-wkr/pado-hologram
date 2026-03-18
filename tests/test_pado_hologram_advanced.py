@@ -27,6 +27,26 @@ def test_dpac_reconstructs_target_field_by_phase_pair_average() -> None:
     result = coder.encode_field(target_field)
 
     assert torch.allclose(result.reconstructed_field, target_field.to(torch.cfloat), atol=1e-5)
+    assert result.kernel_backend in {"torch", "warp"}
+
+
+def test_dpac_explicit_warp_backend_builds_checkerboard_phase() -> None:
+    source = SourceSpec(dim=(1, 1, 4, 4), pitch=6.4e-6, wvl=532e-9)
+    coder = DoublePhaseAmplitudeCoder(source, backend="warp")
+    amplitude = torch.full((4, 4), 0.5)
+    phase = torch.zeros((4, 4))
+    target_field = amplitude.view(1, 1, 4, 4) * torch.exp(1j * phase.view(1, 1, 4, 4))
+
+    result = coder.encode_field(target_field)
+    expected_mask = torch.tensor(
+        [[[[True, False, True, False],
+           [False, True, False, True],
+           [True, False, True, False],
+           [False, True, False, True]]]]
+    )
+
+    assert result.kernel_backend == "warp"
+    assert torch.equal(result.checkerboard_mask.cpu(), expected_mask)
 
 
 def test_multiplane_pipeline_aggregates_identity_metrics() -> None:
@@ -58,3 +78,12 @@ def test_hydra_config_composes_and_runs_default_experiment() -> None:
 
     assert summary.method == "gs"
     assert summary.metrics["final_mse"] == 0.0
+
+
+def test_hydra_config_composes_warp_backend_for_dpac() -> None:
+    with initialize_config_module(version_base=None, config_module="pado_hologram.conf"):
+        cfg = compose(config_name="config", overrides=["experiment=dpac", "backend=warp", "target=gaussian"])
+    summary = run_experiment(cfg)
+
+    assert summary.method == "dpac"
+    assert summary.extras["kernel_backend"] == "warp"
