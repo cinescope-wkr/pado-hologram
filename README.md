@@ -7,7 +7,7 @@
 
 <p align="center">
   <a href="#overview">Overview</a> •
-  <a href="https://cinescope-wkr.github.io/pado-hologram/">Documentation</a> •
+  <a href="https://cinescope-wkr.github.io/pado-hologram/"><strong>Documentation</strong></a> •
   <a href="#getting-started">Getting Started</a> •
   <a href="#architecture">Architecture</a> •
   <a href="#nvidia-warp-backend">NVIDIA Warp Backend</a> •
