@@ -8,13 +8,20 @@ theme:
   name: material
   language: en
   features:
+    - navigation.instant
+    - navigation.tracking
     - navigation.tabs
+    - navigation.tabs.sticky
     - navigation.sections
+    - navigation.expand
     - navigation.top
+    - toc.integrate
     - toc.follow
     - search.suggest
     - search.highlight
+    - search.share
     - content.code.copy
+    - content.action.edit
   palette:
     - scheme: default
       primary: blue grey

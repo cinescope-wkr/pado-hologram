@@ -36,14 +36,14 @@ maintained form.
 
 This repository state is maintained by Jinwoo Lee (`cinescope@kaist.ac.kr`) and
 is being shaped into a clearer, longer-lived home for
-[`differentiable holography`](https://github.com/cinescope-wkr/awesome-neural-holography).
+[`differentiable holography`](https://github.com/cinescope-wkr/awesome-differentiable-holography).
 
 The name draws from the Korean word [`파도`](https://ko.wikipedia.org/wiki/%ED%8C%8C%EB%8F%84), meaning `wave`.
 It reflects both the physical waves we manipulate and the collective momentum of
 the researchers who work on them.
 
 We want this repository to be a unified home for
-[`differentiable holography`](https://github.com/cinescope-wkr/awesome-neural-holography):
+[`differentiable holography`](https://github.com/cinescope-wkr/awesome-differentiable-holography):
 a place where physicists, computer scientists, electrical engineers, optical engineers,
 perception researchers, and curious builders can move beyond fragmented one-off
 efforts and build together.
