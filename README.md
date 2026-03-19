@@ -9,8 +9,8 @@
   <a href="https://cinescope-wkr.github.io/pado-hologram/">
     <img src="https://img.shields.io/badge/Documentation-online-blue" alt="Documentation">
   </a>
-  <a href="https://github.com/cinescope-wkr/pado-hologram/actions/workflows/pages.yml">
-    <img src="https://github.com/cinescope-wkr/pado-hologram/actions/workflows/pages.yml/badge.svg" alt="Docs Deploy">
+  <a href="https://github.com/cinescope-wkr/pado-hologram/actions/workflows/deploy-docs.yml">
+    <img src="https://github.com/cinescope-wkr/pado-hologram/actions/workflows/deploy-docs.yml/badge.svg" alt="Docs Deploy">
   </a>
 </p>
 
