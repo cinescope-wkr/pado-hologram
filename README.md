@@ -6,8 +6,11 @@
 <h3 align="center">An open-source computer-generated holography framework built on top of PADO, a PyTorch differentiable optics library.</h3>
 
 <p align="center">
+  <a href="https://cinescope-wkr.github.io/pado-hologram/"><strong>Documentation</strong></a>
+</p>
+
+<p align="center">
   <a href="#overview">Overview</a> •
-  <a href="https://cinescope-wkr.github.io/pado-hologram/"><strong>Documentation</strong></a> •
   <a href="#getting-started">Getting Started</a> •
   <a href="#architecture">Architecture</a> •
   <a href="#nvidia-warp-backend">NVIDIA Warp Backend</a> •
