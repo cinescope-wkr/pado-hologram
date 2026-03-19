@@ -22,7 +22,7 @@ Holography-layer citation:
 
    @software{lee2026padohologram,
       author = {Jinwoo Lee},
-      title = {PADO Hologram: Holography Workflows Built on Top of PADO},
+      title = {PADO Hologram: An open-source computer-generated holography framework built on top of PADO, a PyTorch differentiable optics library.},
       year = {2026},
       note = {https://github.com/cinescope-wkr/pado-hologram},
       abstract = {Repository-maintained holography-oriented layer built on top of PADO, including DPAC, multi-plane workflows, and Hydra-based experiments}

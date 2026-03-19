@@ -10,13 +10,13 @@ hide:
 # Differentiable Holography, Documented as a Framework
 
 <p class="pado-hero-lead">
-PADO Hologram is an open-source computer-generated holography framework built on top of
-<a href="https://github.com/shwbaek/pado">PADO</a>, the differentiable optics core originally developed by the
-<a href="https://sites.google.com/view/shbaek/home">POSTECH Computer Graphics Lab</a>.
+An open-source computer-generated holography framework built on top of
+<a href="https://github.com/shwbaek/pado">PADO</a>, a PyTorch differentiable optics library.
 </p>
 
 This site is the high-level guide to the repository: what it is trying to become, how it is organized,
-which workflows already exist, and where contributors can help grow it next.
+which workflows already exist, and where contributors can help grow it next. The underlying PADO optics
+core was originally developed by the <a href="https://sites.google.com/view/shbaek/home">POSTECH Computer Graphics Lab</a>.
 
 [Get Started](guide/installation.md){ .md-button .md-button--primary }
 [Read the Vision](community/vision.md){ .md-button }

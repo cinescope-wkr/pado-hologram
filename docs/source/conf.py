@@ -88,7 +88,7 @@ templates_path = ['_templates']
 
 # Furo theme options
 html_theme_options = {
-    "announcement": "PADO Hologram: holography workflows built on top of the PADO optics core",
+    "announcement": "An open-source computer-generated holography framework built on top of PADO, a PyTorch differentiable optics library.",
     "sidebar_hide_name": False,
 }
 

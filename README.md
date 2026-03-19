@@ -3,7 +3,7 @@
 </div>
 
 <h1 align="center">PADO Hologram</h1>
-<h3 align="center">An open-source computer-generated holography framework built on top of PADO</h3>
+<h3 align="center">An open-source computer-generated holography framework built on top of PADO, a PyTorch differentiable optics library.</h3>
 
 <p align="center">
   <a href="#overview">Overview</a> •
@@ -295,7 +295,7 @@ this repository state, cite `PADO Hologram` as well.
 ```bib
 @software{lee2026padohologram,
    author = {Jinwoo Lee},
-   title = {PADO Hologram: Holography Workflows Built on Top of PADO},
+   title = {PADO Hologram: An open-source computer-generated holography framework built on top of PADO, a PyTorch differentiable optics library.},
    year = {2026},
    note = {https://github.com/cinescope-wkr/pado-hologram},
    abstract = {Repository-maintained holography-oriented layer built on top of PADO, including DPAC, multi-plane workflows, and Hydra-based experiments}
