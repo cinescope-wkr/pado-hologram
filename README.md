@@ -242,7 +242,7 @@ to these notebooks: a reusable orchestration layer rather than notebook-only log
 Contributors are welcome.
 
 If you have experience with related holography frameworks such as
-[`holotorch`](https://github.com/facebookresearch/holotorch), your perspective is
+[`Holotorch`](https://github.com/facebookresearch/holotorch), your perspective is
 especially valuable here. The goal is not to clone that project, but to learn from
 what it enabled and rebuild the most useful workflow ideas in a smaller,
 maintainable, PADO-native form.
