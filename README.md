@@ -6,7 +6,12 @@
 <h3 align="center">An open-source computer-generated holography framework built on top of PADO, a PyTorch differentiable optics library.</h3>
 
 <p align="center">
-  <a href="https://cinescope-wkr.github.io/pado-hologram/"><strong>Documentation</strong></a>
+  <a href="https://cinescope-wkr.github.io/pado-hologram/">
+    <img src="https://img.shields.io/badge/Documentation-online-blue" alt="Documentation">
+  </a>
+  <a href="https://github.com/cinescope-wkr/pado-hologram/actions/workflows/pages.yml">
+    <img src="https://github.com/cinescope-wkr/pado-hologram/actions/workflows/pages.yml/badge.svg" alt="Docs Deploy">
+  </a>
 </p>
 
 <p align="center">
@@ -264,8 +269,8 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md) for the contributor-facing overview.
 ## Fork Notice
 
 > [!NOTE]
-> This repository should be understood as a forked, repository-maintained,
-> holography-oriented version of the original PADO project.
+> This repository is maintained as `PADO Hologram`, a forked holography-oriented
+> extension of the original PADO project.
 > The original PADO framework is developed by the [POSTECH Computer Graphics Lab](https://sites.google.com/view/shbaek/home).
 >
 > **Fork maintainer**: Jinwoo Lee  
