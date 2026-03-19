@@ -24,7 +24,7 @@ important repository concepts currently live.
 - `pado_hologram.slm`: framework-level LCOS/SLM helpers
 - `pado_hologram.pipeline`: single-plane and multi-plane workflow composition
 - `pado_hologram.algorithms`: GS and DPAC helpers
-- `pado_hologram.primitive_based`: gsplat-free primitive-scene Gaussian renderer baselines, backend selection, and preset/JSON scene ingestion
+- `pado_hologram.primitive_based`: gsplat-free primitive-scene Gaussian baselines, depth-aware and alpha-wave-blending variants, exact GWS/RPWS paths, backend selection, and preset/JSON scene ingestion
 - `pado_hologram.devices`: SLM support and optional camera/observation transforms
 - `pado_hologram.experiments`: experiment execution utilities and config composition
 - `pado_hologram.experiment`: backward-compatible re-export for older experiment imports

@@ -17,6 +17,11 @@ The core package path remains `pado` for compatibility with the original layout.
 This repository keeps compatibility where possible, but it is being developed as
 a more explicit holography framework layer on top of the original optics core.
 
+Fork maintainer for this repository state:
+
+- Jinwoo Lee
+- `cinescope@kaist.ac.kr`
+
 That includes:
 
 - `pado.display`
@@ -29,6 +34,11 @@ That includes:
 
 The repository remains under the MIT license inherited from the original PADO
 project.
+
+The current legal `LICENSE` file still preserves the upstream MIT notice from
+the original PADO project, including the original copyright and contact block.
+The fork-maintainer note above is meant to explain the maintained repository
+state, not to silently replace the legal notice in that file.
 
 In practical terms, the current license permits:
 

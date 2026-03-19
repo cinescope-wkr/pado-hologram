@@ -11,15 +11,15 @@ Rebuilt as a lean, native stack, it picks up where earlier frameworks such as
 `holotorch <https://github.com/facebookresearch/holotorch>`_ left off, with a stronger
 emphasis on long-term maintainability, clarity, and performance.
 
-``PADO`` also echoes the Korean word `파도 <https://ko.wikipedia.org/wiki/%ED%8C%8C%EB%8F%84>`_, meaning ``wave``. The name points both to the
-physical waves we manipulate and to the collective momentum of the researchers
-who work on them.
+``PADO`` can also be read as `PADO (파도) <https://ko.wikipedia.org/wiki/%ED%8C%8C%EB%8F%84>`_, the Korean
+word for ``wave``. The name points both to the physical waves we manipulate and
+to the collective momentum of the researchers who work on them.
 
 This repository is intended as a shared home for the broader holography and
 computational imaging community: a place where people from physics, computer science, electrical engineering,
 optics, psychology, perception research, and neighboring areas can move beyond
 fragmented one-off efforts and build together. In that spirit,
-``PADO Hologram`` is an invitation to surf this `파도 <https://ko.wikipedia.org/wiki/%ED%8C%8C%EB%8F%84>`_ together.
+``PADO Hologram`` is an invitation to surf this `PADO (파도) <https://ko.wikipedia.org/wiki/%ED%8C%8C%EB%8F%84>`_ together.
 
 .. note::
 

@@ -22,7 +22,7 @@ Naming and Package Layout
 - Repository identity: ``PADO Hologram``
 - Core optics package: ``pado``
 - Higher-level holography namespace: ``pado_hologram``
-- ``PADO`` comes from the Korean word `파도 <https://ko.wikipedia.org/wiki/%ED%8C%8C%EB%8F%84>`_, meaning ``wave``
+- ``PADO`` can also be read as `PADO (파도) <https://ko.wikipedia.org/wiki/%ED%8C%8C%EB%8F%84>`_, the Korean word for ``wave``
 
 The package path is intentionally not renamed away from ``pado`` because the
 existing optics API should remain stable while the upper holography layer grows.
@@ -48,8 +48,8 @@ Community Vision
 ``PADO Hologram`` is not only a software architecture direction. It is also meant
 to be a community direction.
 
-The name helps express that vision. ``PADO`` means `파도 <https://ko.wikipedia.org/wiki/%ED%8C%8C%EB%8F%84>`_ in Korean, or
-``wave``. That fits the physics, but it also gives us a useful metaphor:
+The name helps express that vision. ``PADO`` can also be read as `PADO (파도) <https://ko.wikipedia.org/wiki/%ED%8C%8C%EB%8F%84>`_,
+the Korean word for ``wave``. That fits the physics, but it also gives us a useful metaphor:
 this is a wave we want to ride together.
 
 The goal is to help create a shared place where people from computer science,

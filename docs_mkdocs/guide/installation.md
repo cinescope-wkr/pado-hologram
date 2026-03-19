@@ -75,6 +75,7 @@ pado-hologram doctor --run-smoke
 pado-hologram run experiment=gs
 pado-hologram run experiment=dpac target=gaussian
 pado-hologram run experiment=primitive_gaussian_gws_exact primitives=gaussian3d_depth_ring
+pado-hologram run experiment=primitive_gaussian_rpws primitives=gaussian3d_depth_ring
 ```
 
 !!! tip
@@ -91,6 +92,13 @@ After installation, the repository should be understood as having two layers:
 
 - `pado`: the differentiable optics core
 - `pado_hologram`: the higher-level CGH framework layer
+
+Within `pado_hologram`, the currently documented upper-layer surface includes:
+
+- compact phase-only baselines such as GS and DPAC
+- primitive-scene Gaussian baselines and splat renderers
+- exact primitive-based GWS and RPWS experiment paths
+- optional Warp-backed custom-kernel paths for DPAC and primitive renderers
 
 The `pado` package path is intentionally retained for compatibility with the
 original upstream structure.

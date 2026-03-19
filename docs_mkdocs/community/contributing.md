@@ -28,5 +28,8 @@ If you have experience with related research codebases such as
 [`holotorch`](https://github.com/facebookresearch/holotorch), that perspective
 is especially useful here.
 
-For the repository-level contribution guide, see:
-[`CONTRIBUTING.md`](https://github.com/cinescope-wkr/pado-hologram/blob/main/CONTRIBUTING.md)
+This MkDocs page is the canonical contributor guide for the maintained
+repository state.
+
+The repository root `CONTRIBUTING.md` is kept only as a short GitHub-visible
+shim that points back here.

@@ -9,15 +9,31 @@ project. The maintained ``PADO Hologram`` repository direction does not change
 that license.
 
 Based on the current ``LICENSE`` file in this repository and the current
-`upstream PADO repository <https://github.com/shwbaek/pado>`_, the license is
-MIT. That license explicitly permits reuse, modification, merge, publication,
-distribution, sublicensing, and sale, provided that the copyright notice and
-license notice are retained in copies or substantial portions of the software.
+`upstream PADO repository <https://github.com/shwbaek/pado>`_, the repository
+license is MIT. That license explicitly permits reuse, modification, merge,
+publication, distribution, sublicensing, and sale, provided that the copyright
+notice and license notice are retained in copies or substantial portions of the
+software.
 
 In practical terms, that means a maintained extension such as ``PADO Hologram``
 is compatible with the repository's current license structure as long as those
 notices are preserved. This is a technical reading of the license text, not
 formal legal advice.
+
+Maintained Fork Note
+--------------------
+
+The legal ``LICENSE`` file currently preserves the upstream MIT notice from the
+original PADO project, including the original copyright and contact block.
+
+The maintained repository state documented here is coordinated by:
+
+- Fork maintainer: Jinwoo Lee
+- Maintainer contact: ``cinescope@kaist.ac.kr``
+
+This maintainer note describes the current repository-maintained fork state. It
+does not by itself replace or rewrite the legal notice contained in the
+repository's ``LICENSE`` file.
 
 The MIT license allows you to:
 
@@ -34,7 +50,21 @@ Full License Text
 
 MIT License
 
-Copyright (c) 2025 PADO
+Current ``LICENSE`` header in this repository::
+
+   ########################################################
+   # The MIT License (MIT)
+   #
+   # PADO (Pytorch Automatic Differentiable Optics)
+   # Copyright (c) 2025 by POSTECH Computer Graphics Lab
+   #
+   # Contact:
+   # Lead Developer: Dong-Ha Shin (0218sdh@gmail.com)
+   # Corresponding Author: Seung-Hwan Baek (shwbaek@postech.ac.kr)
+   #
+   ########################################################
+
+MIT license terms:
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

@@ -24,8 +24,8 @@ core was originally developed by the <a href="https://sites.google.com/view/shba
 
 </section>
 
-`PADO` also draws from the Korean word [`파도`](https://ko.wikipedia.org/wiki/%ED%8C%8C%EB%8F%84), meaning
-`wave`. The repository uses that name both literally, for the optical waves it simulates, and socially,
+`PADO` can also be read as [`PADO (파도)`](https://ko.wikipedia.org/wiki/%ED%8C%8C%EB%8F%84), the Korean word
+for `wave`. The repository uses that name both literally, for the optical waves it simulates, and socially,
 for the momentum of a research community building reusable holography tools together.
 
 ## What You Will Find Here

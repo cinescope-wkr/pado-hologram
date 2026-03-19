@@ -35,7 +35,9 @@ currently includes:
 - reconstruction losses and metrics
 - single-plane and multi-plane pipelines
 - compact GS and DPAC helpers
+- primitive-scene Gaussian baselines plus exact GWS/RPWS experiment paths
 - CLI- and Hydra-driven experiment entry points
+- optional Warp-backed custom-kernel backends for DPAC and primitive renderers
 
 Internally, the current layout separates responsibilities more clearly:
 

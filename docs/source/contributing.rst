@@ -38,4 +38,9 @@ Working principles
 - prefer documented, testable APIs over notebook-only logic
 - avoid importing non-MIT code into this repository
 
-For a contributor-facing overview in the repository root, see ``CONTRIBUTING.md``.
+The canonical contributor guide for the maintained repository state lives in the
+MkDocs documentation:
+`https://cinescope-wkr.github.io/pado-hologram/community/contributing/ <https://cinescope-wkr.github.io/pado-hologram/community/contributing/>`_.
+
+The repository-root ``CONTRIBUTING.md`` is kept only as a short GitHub-visible
+shim pointing to that guide.

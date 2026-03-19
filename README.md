@@ -35,7 +35,7 @@
 
 `PADO Hologram` is the CGH-focused evolution of the [`PADO`](https://github.com/shwbaek/pado)
 differentiable optics core. Rebuilt as a lean, native stack, it picks up where
-earlier frameworks such as [`holotorch`](https://github.com/facebookresearch/holotorch)
+earlier frameworks such as [`Holotorch`](https://github.com/facebookresearch/holotorch)
 left off, with a stronger emphasis on long-term maintainability, clarity, and performance.
 
 The underlying optics engine still lives in the `pado` package for compatibility,
@@ -46,7 +46,7 @@ This repository state is maintained by Jinwoo Lee (`cinescope@kaist.ac.kr`) and
 is being shaped into a clearer, longer-lived home for
 [`neural holography`](https://github.com/cinescope-wkr/awesome-differentiable-holography).
 
-The name draws from the Korean word [`파도`](https://ko.wikipedia.org/wiki/%ED%8C%8C%EB%8F%84), meaning `wave`.
+The name `PADO` can also be read as [`PADO (파도)`](https://ko.wikipedia.org/wiki/%ED%8C%8C%EB%8F%84), the Korean word for `wave`.
 It reflects both the physical waves we manipulate and the collective momentum of
 the researchers who work on them.
 
@@ -56,7 +56,7 @@ a place where physicists, computer scientists, electrical engineers, optical eng
 perception researchers, and curious builders can move beyond fragmented one-off
 efforts and build together.
 
-Let’s surf this [`파도`](https://ko.wikipedia.org/wiki/%ED%8C%8C%EB%8F%84) together.
+Let’s surf this [`PADO (파도)`](https://ko.wikipedia.org/wiki/%ED%8C%8C%EB%8F%84) together.
 
 ---
 
@@ -261,7 +261,8 @@ Good areas to help with:
 - SLM and display models, measured LUT support, and hardware-facing abstractions
 - Hydra configs, experiments, tests, and documentation
 
-See [CONTRIBUTING.md](./CONTRIBUTING.md) for the contributor-facing overview.
+See the contributor guide:
+<https://cinescope-wkr.github.io/pado-hologram/community/contributing/>
 
 ## Repository Updates
 
@@ -314,7 +315,9 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md) for the contributor-facing overview.
 
 ## License
 
-This repository remains under the MIT License. See [LICENSE](./LICENSE) for details.
+This repository remains under the MIT License. The maintained fork state is
+currently coordinated by Jinwoo Lee (`cinescope@kaist.ac.kr`), while the legal
+license notice remains the one preserved in [LICENSE](./LICENSE).
 
 ## Citation
 
