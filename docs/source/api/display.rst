@@ -1,7 +1,11 @@
-Display and Encoding
-====================
+Display and Encoding Bridge
+===========================
 
 .. currentmodule:: pado.display
+
+This module remains available under ``pado`` for compatibility, but in the
+current repository architecture it is documented as a bridge into
+``pado_hologram`` rather than as part of the long-term optics-core identity.
 
 LCOS Models
 -----------

@@ -40,6 +40,10 @@ repository. It helps connect:
 In other words, it begins to move the repository from idealized optics-only
 simulation toward device-aware holography workflows.
 
+It still lives under the `pado` namespace for compatibility, but the current
+documentation treats it as a bridge into `pado_hologram` rather than as part of
+the long-term optics-core identity.
+
 ## Practical Rule of Thumb
 
 Use:

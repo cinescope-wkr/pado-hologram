@@ -20,15 +20,15 @@ Ignoring that gap makes optimization results harder to trust in practical use.
 
 ## Current Repository Path
 
-The first device-aware layer currently appears in `pado.display`, especially
-through:
+The first device-aware layer remains available through `pado.display` as a
+compatibility bridge, especially through:
 
 - `LCOSLUT`
 - `lcos_encode_phase`
 - `slm_light_from_phase`
 
-On top of that, `pado_hologram.slm` provides framework-level wrappers such as
-`PhaseOnlyLCOSSLM`.
+On top of that, `pado_hologram.slm` and `pado_hologram.devices` provide
+framework-level wrappers such as `PhaseOnlyLCOSSLM`.
 
 ## Current Scope
 

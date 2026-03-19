@@ -4,6 +4,9 @@ Installation
 This documentation describes the maintained ``PADO Hologram`` repository state.
 The recommended installation path is to work from source so that both the core
 ``pado`` package and the higher-level ``pado_hologram`` scaffold are available.
+After the editable install, the ``pado-hologram`` console command should also
+be available. If it is not on ``PATH`` yet, ``python -m pado_hologram`` remains
+the most portable entry point.
 
 Recommended Development Install
 -------------------------------
@@ -34,7 +37,7 @@ Package Layout
 
 - ``pado``: the core differentiable optics package
 - ``pado_hologram``: the higher-level holography layer
-- ``pado.display``: the current device-aware bridge for LCOS/SLM encoding workflows
+- ``pado.display``: a compatibility bridge for LCOS/SLM encoding workflows that remains in the ``pado`` namespace
 - ``pado_hologram.pipeline`` and related modules: orchestration built on top of the core package
 - ``pado_hologram.conf``: Hydra config package for reproducible experiments
 
@@ -45,6 +48,15 @@ Minimal Import Check
 
    import pado
    import pado_hologram
+
+Minimal CLI Check
+-----------------
+
+.. code-block:: bash
+
+   python -m pado_hologram
+   pado-hologram doctor --run-smoke
+   pado-hologram run experiment=gs
 
 Core Dependencies
 -----------------

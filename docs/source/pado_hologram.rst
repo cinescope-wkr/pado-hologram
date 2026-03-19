@@ -31,7 +31,7 @@ Role Split
 ----------
 
 - ``PADO`` remains the compact differentiable optics core:
-  light fields, propagation, optical elements, materials, and small device-aware helpers.
+  light fields, propagation, optical elements, materials, and a small compatibility bridge for device-aware encoding.
 - ``PADO Hologram`` is intended to host higher-level holography workflows:
   CGH optimization, SLM-aware pipelines, setup orchestration, and future display/capture interfaces.
 
@@ -64,9 +64,9 @@ and motivate one another across disciplinary boundaries.
 Current Starting Point
 ----------------------
 
-- ``pado.display`` is the first device-aware bridge from ideal phase targets to LCOS/SLM-oriented encoding.
-- ``pado_hologram`` is now an importable package with concrete modules for source/propagation specs, device encoding, targets, losses, pipelines, and phase-only optimization.
-- ``pado_hologram.backends`` now includes an optional `NVIDIA Warp <https://github.com/NVIDIA/warp>`_ path for custom holography kernels, starting from the DPAC checkerboard composition layer.
+- ``pado.display`` remains available as a compatibility bridge from ideal phase targets to LCOS/SLM-oriented encoding.
+- ``pado_hologram`` is now an importable package with concrete modules for source/propagation specs, device encoding, targets, losses, pipelines, phase-only optimization, primitive-based rendering, experiment orchestration, and learning-facing scaffolds.
+- ``pado_hologram.backends`` now includes an optional `NVIDIA Warp <https://github.com/NVIDIA/warp>`_ path for custom holography kernels across DPAC and primitive-based renderer paths.
 - Documentation now treats this as an explicit architectural direction rather than an implicit fork-only idea.
 
 Current Modules
@@ -81,18 +81,22 @@ The initial ``pado_hologram`` module set is:
 - ``pado_hologram.losses`` for intensity and amplitude losses plus reconstruction metrics
 - ``pado_hologram.pipeline`` for composed holography workflows
 - ``pado_hologram.algorithms`` for compact hologram-generation algorithms including DPAC and Gerchberg-Saxton
-- ``pado_hologram.experiment`` and ``pado_hologram.hydra_app`` for reproducible experiment entry points
+- ``pado_hologram.devices`` for SLM wrappers and optional camera/observation transforms
+- ``pado_hologram.primitive_based`` for Gaussian baselines, exact GWS/RPWS paths, and optional backend selection
+- ``pado_hologram.experiments`` and ``pado_hologram.hydra_app`` for reproducible experiment entry points
+- ``pado_hologram.representations`` for primitive-scene data containers
+- ``pado_hologram.neural`` for capture-, calibration-, and learning-facing scaffolds
 
 Near-Term Scope
 ---------------
 
-The first building blocks planned for ``PADO Hologram`` are:
+The next important building blocks for ``PADO Hologram`` are:
 
-- higher-level phase-only and DPAC-style workflow utilities
-- setup/pipeline composition for source -> modulator -> propagation -> sensor chains
-- optimization helpers for hologram generation experiments
-- hardware-aware abstractions kept separate from the optics core
-- experiment configuration layers for reproducible holography pipelines
+- stronger benchmark and parity harnesses across methods
+- richer phase-optimization interfaces beyond compact GS/DPAC baselines
+- higher-level supervision abstractions for depth and multi-plane workflows
+- capture/calibration layers kept separate from the optics core
+- learned forward-model interfaces for future neural holography workflows
 
 Optional `NVIDIA Warp <https://github.com/NVIDIA/warp>`_ Layer
 --------------------------------------------------------------
@@ -104,9 +108,10 @@ integration. Its intended significance is narrow and practical:
 - not to over-claim wholesale acceleration
 - to create a maintainable place for future custom holography kernels
 
-The first integration point is the DPAC checkerboard kernel path. That gives the
-project a real Warp-backed starting point while keeping the core optics engine
-PyTorch-first.
+Current integration points include the DPAC checkerboard kernel path,
+primitive-scene splat backends, and primitive-based exact renderer paths. That
+gives the project a real Warp-backed starting point while keeping the core
+optics engine PyTorch-first.
 
 Contributor Welcome
 -------------------

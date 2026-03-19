@@ -21,10 +21,10 @@ At a high level:
 
 ## 2. Run a Built-In Experiment
 
-The easiest entry point today is the Hydra experiment app:
+The easiest entry point today is the package CLI:
 
 ```bash
-python -m pado_hologram.hydra_app experiment=gs
+pado-hologram run experiment=gs
 ```
 
 This exercises:
@@ -37,14 +37,28 @@ This exercises:
 You can also run the current DPAC path:
 
 ```bash
-python -m pado_hologram.hydra_app experiment=dpac target=gaussian
+pado-hologram run experiment=dpac target=gaussian
 ```
 
-If you have installed the optional Warp dependency, you can also request the
-Warp-backed custom-kernel path explicitly:
+The primitive-based exact path is also available:
 
 ```bash
-python -m pado_hologram.hydra_app experiment=dpac target=gaussian backend=warp
+pado-hologram run experiment=primitive_gaussian_gws_exact primitives=gaussian3d_depth_ring
+```
+
+If you have installed the optional Warp dependency, you can request the
+Warp-backed path explicitly for either DPAC or the exact primitive renderer:
+
+```bash
+pado-hologram run experiment=dpac target=gaussian backend=warp
+pado-hologram run experiment=primitive_gaussian_gws_exact primitives=gaussian3d_depth_ring backend=warp
+```
+
+The Hydra-native compatibility path still exists when you want the lower-level
+Hydra entrypoint directly:
+
+```bash
+python -m pado_hologram.hydra_app experiment=gs
 ```
 
 ## 3. Use the Core API Directly
@@ -68,18 +82,21 @@ This is the simplest way to see the current layering:
 
 ## 4. Use Device-Aware Phase Encoding
 
-The first LCOS/SLM-oriented helper currently lives in `pado.display`:
+The first LCOS/SLM-oriented helper remains available through `pado.display` as a
+compatibility bridge:
 
 ```python
 from pado.display import LCOSLUT, lcos_encode_phase, slm_light_from_phase
 ```
 
-This layer is important because it starts bridging ideal phase optimization to
-realized display-domain behavior such as quantization and LUT-based phase
-response.
+This layer is important because it bridges ideal phase optimization to realized
+display-domain behavior such as quantization and LUT-based phase response while
+the higher-level workflow surface moves toward `pado_hologram.devices` and
+`pado_hologram.slm`.
 
 ## 5. Next Steps
 
 - Read [Repository Layout](repository-layout.md)
 - Read [Architecture Overview](../concepts/architecture.md)
+- Read [Experiments and Hydra](../workflows/experiments.md)
 - Read [Phase-Only CGH Workflow](../workflows/phase-only-cgh.md)

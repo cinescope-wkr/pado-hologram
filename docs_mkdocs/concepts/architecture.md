@@ -51,8 +51,14 @@ The intended role of Warp here is specific:
 - not to force the optics core away from PyTorch
 - to provide a maintainable home for future custom holography kernels
 
-The first integration point is the DPAC checkerboard kernel path. That makes the
-current Warp layer meaningful without overstating what has already been moved.
+Current integration points include:
+
+- the DPAC checkerboard kernel path
+- primitive-scene Gaussian splat backends
+- exact primitive-based GWS/RPWS renderer paths
+
+That makes the current Warp layer meaningful without overstating what has
+already been moved.
 
 ## Current End-to-End Path
 

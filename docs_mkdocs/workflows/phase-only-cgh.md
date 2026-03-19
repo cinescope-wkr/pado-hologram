@@ -14,6 +14,8 @@ Today, the repository exposes the following pieces for this workflow:
 
 - `IntensityTarget` for specifying the reconstruction objective
 - `GerchbergSaxtonPhaseOptimizer` for a compact iterative phase-only solver
+- `DoublePhaseAmplitudeCoder` for DPAC-based phase-only encoding
+- `PhaseOnlyLCOSSLM` for optional LCOS/SLM-aware phase realization
 - `HologramPipeline` for end-to-end source → SLM → propagation → evaluation
 
 ## Conceptual Loop
@@ -27,7 +29,9 @@ The current Gerchberg-Saxton path can be read as:
 5. keep the phase and repeat
 
 This is not yet the entire story of modern inverse design, but it is a solid
-and understandable baseline.
+and understandable baseline. In the current repository, that baseline now sits
+alongside DPAC and higher-level device-aware phase encoding rather than standing
+alone as the only phase-only path.
 
 ## Why This Matters
 

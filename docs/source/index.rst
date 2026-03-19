@@ -73,7 +73,7 @@ The higher-level holography namespace reserved in this repository is ``pado_holo
          PADO Core API
          ^^^^^^^^^^^^^
 
-         Reference documentation for the ``pado`` optics core and current device helpers.
+         Reference documentation for the ``pado`` optics core and the current compatibility bridge.
 
    .. grid-item::
       :class: grid-item-card

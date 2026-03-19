@@ -4,7 +4,7 @@ This page explains how to install and verify `PADO Hologram` from source.
 
 !!! note
 
-    The repository is currently designed to be used from source rather than as a pre-packaged release.
+    The repository is still primarily documented as a source install, but it is now packaged cleanly enough to expose a small `pado-hologram` CLI after installation.
 
 ## Recommended Setup
 
@@ -20,6 +20,11 @@ This installs:
 
 - the original optics core under the import path `pado`
 - the higher-level holography package under the import path `pado_hologram`
+
+After this editable install, the `pado-hologram` console command should also be
+available. If you are working before installation or in an environment where
+the console script is not on `PATH`, `python -m pado_hologram` remains the most
+portable entry point.
 
 ## Optional [`NVIDIA Warp`](https://github.com/NVIDIA/warp) Support
 
@@ -62,16 +67,23 @@ import pado
 import pado_hologram
 ```
 
-Minimal experiment check:
+Minimal package and experiment check:
 
 ```bash
-python -m pado_hologram.hydra_app experiment=gs
-python -m pado_hologram.hydra_app experiment=dpac target=gaussian
+python -m pado_hologram
+pado-hologram doctor --run-smoke
+pado-hologram run experiment=gs
+pado-hologram run experiment=dpac target=gaussian
+pado-hologram run experiment=primitive_gaussian_gws_exact primitives=gaussian3d_depth_ring
 ```
 
 !!! tip
 
-    If you only want to verify that the framework imports and the smallest holography paths run, these two Hydra commands are enough for a quick sanity check.
+    `pip` does not provide a stable, cross-backend post-install hook for showing a friendly banner. The recommended package-level welcome path is therefore `python -m pado_hologram` or `pado-hologram`, which prints a lightweight ASCII banner and environment summary.
+
+For a fuller command list, including primitive-scene presets, RPWS, camera
+overrides, and the Hydra-native compatibility path, continue to
+[Quickstart](quickstart.md) and [Experiments](../workflows/experiments.md).
 
 ## Package Layout
 

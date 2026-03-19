@@ -16,6 +16,14 @@ Core Components
    propagator
    material
    math
+
+Compatibility Bridge
+--------------------
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Transitional / Compatibility Modules
+
    display
 
 PADO Hologram Layer
@@ -70,17 +78,22 @@ The ``pado`` package currently consists of the following main modules:
    - Numerical methods
    - Optimization utilities
 
-6. **Display and Encoding** (`pado.display`)
-   
-   Provides the first device-aware bridge used by the holography layer:
+6. **Display and Encoding Bridge** (`pado.display`)
+
+   Remains available in the ``pado`` namespace for compatibility:
    - LCOS lookup-table models
-   - Quantized phase encoding
+   - quantized phase encoding
    - SLM-plane light generation from optimized phase
+
+   In the current repository documentation, this is treated as a transitional
+   bridge into the holography layer rather than as part of the long-term core
+   identity.
 
 7. **PADO Hologram Layer** (`pado_hologram`)
 
    Provides the higher-level holography orchestration stack:
    - source and propagation specifications
    - phase-only LCOS/SLM device models
+   - primitive-based Gaussian baselines and exact GWS/RPWS paths
    - reconstruction targets and multi-plane evaluation
-   - experiment pipelines, compact optimization algorithms, and Hydra-driven runs
+   - experiment pipelines, compact optimization algorithms, and CLI- or Hydra-driven runs

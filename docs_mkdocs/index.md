@@ -71,7 +71,7 @@ If you are here for something specific, start from one of these pages:
 
   ---
 
-  Start with installation, imports, and the smallest Hydra-backed experiments.
+  Start with installation, imports, and the smallest CLI-backed or Hydra-compatible experiments.
 
 - [**I want to understand the repository structure**](guide/repository-layout.md)
 
@@ -89,7 +89,7 @@ If you are here for something specific, start from one of these pages:
 
   ---
 
-  Find Hydra commands, backend choices, and the current workflow scope.
+  Find CLI commands, Hydra compatibility, backend choices, and the current workflow scope.
 
 - [**I want device-aware SLM details**](workflows/device-modeling.md)
 
@@ -125,13 +125,13 @@ If you are here for something specific, start from one of these pages:
 
   ---
 
-  `pado.display` bridges ideal phase outputs to LUT-based LCOS/SLM behavior and quantized realization.
+  `pado.display` remains a compatibility bridge for LUT-based LCOS/SLM behavior while higher-level wrappers live in `pado_hologram`.
 
 - [**Experiment orchestration**](workflows/experiments.md)
 
   ---
 
-  Hydra-backed runs for reproducibility without pushing configuration complexity into the lower-level optics core.
+  CLI-backed and Hydra-compatible runs for reproducibility without pushing configuration complexity into the lower-level optics core.
 
 </div>
 

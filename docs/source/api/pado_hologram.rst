@@ -12,6 +12,14 @@ Configuration
    :undoc-members:
    :show-inheritance:
 
+Backends
+--------
+
+.. automodule:: pado_hologram.backends
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 SLM and Encoding
 ----------------
 
@@ -52,10 +60,49 @@ Algorithms
    :undoc-members:
    :show-inheritance:
 
+Primitive-Based Rendering
+-------------------------
+
+.. automodule:: pado_hologram.primitive_based
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Devices
+-------
+
+.. automodule:: pado_hologram.devices
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :exclude-members: PhaseEncodingConfig, PhaseEncodingResult, PhaseOnlyLCOSSLM
+
 Experiment Layer
 ----------------
 
-.. automodule:: pado_hologram.experiment
+.. automodule:: pado_hologram.experiments
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+.. note::
+
+   ``pado_hologram.experiment`` remains as a backward-compatible re-export for
+   older import paths. The canonical module surface is now
+   ``pado_hologram.experiments``.
+
+Representations
+---------------
+
+.. automodule:: pado_hologram.representations
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Neural Scaffolds
+----------------
+
+.. automodule:: pado_hologram.neural
    :members:
    :undoc-members:
    :show-inheritance:
