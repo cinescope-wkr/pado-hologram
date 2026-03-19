@@ -73,7 +73,7 @@ pip install -e .
 Optional [`NVIDIA Warp`](https://github.com/NVIDIA/warp) support for custom holography kernels:
 
 ```bash
-pip install -r requirements-extra.txt
+pip install -e ".[warp]"
 ```
 
 This repository keeps the core optics import path as `pado` and also exposes the

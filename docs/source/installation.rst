@@ -25,7 +25,7 @@ If you want to enable the optional Warp-backed custom-kernel path in
 
 .. code-block:: bash
 
-   pip install -r requirements-extra.txt
+   pip install -e ".[warp]"
 
 This optional layer is currently aimed at custom holography kernels rather than
 as a full replacement for the PyTorch propagation stack in ``pado``.

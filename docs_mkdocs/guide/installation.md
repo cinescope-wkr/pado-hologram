@@ -31,7 +31,7 @@ portable entry point.
 If you want to enable the experimental Warp-backed custom-kernel path:
 
 ```bash
-pip install -r requirements-extra.txt
+pip install -e ".[warp]"
 ```
 
 This optional dependency is currently intended for `pado_hologram` custom
