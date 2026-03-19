@@ -257,6 +257,9 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md) for the contributor-facing overview.
 
 **Stability fixes in this update**:
 
+<details>
+<summary>Show stability fixes</summary>
+
 - Fixed `pad()` dimension bookkeeping so metadata stays aligned with the underlying tensor shape.
 - Fixed complex-field resize and magnification paths used by `Light` and `OpticalElement`.
 - Fixed LCOS phase wrapping so LUTs using `[0, 2π]` and `[-π, π]` conventions both encode target phase sanely.
@@ -265,6 +268,8 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md) for the contributor-facing overview.
 - Fixed `SLM.set_lens()` to work with the current wavelength-managed setter path.
 - Fixed multi-channel `calculate_ssim()` support.
 - Fixed `PolarizedSLM` so polarization-specific amplitude and phase state are tracked consistently.
+
+</details>
 
 ## Fork Notice
 
