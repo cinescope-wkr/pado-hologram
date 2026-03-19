@@ -44,14 +44,14 @@ maintained form.
 
 This repository state is maintained by Jinwoo Lee (`cinescope@kaist.ac.kr`) and
 is being shaped into a clearer, longer-lived home for
-[`differentiable holography`](https://github.com/cinescope-wkr/awesome-differentiable-holography).
+[`neural holography`](https://github.com/cinescope-wkr/awesome-differentiable-holography).
 
 The name draws from the Korean word [`파도`](https://ko.wikipedia.org/wiki/%ED%8C%8C%EB%8F%84), meaning `wave`.
 It reflects both the physical waves we manipulate and the collective momentum of
 the researchers who work on them.
 
 We want this repository to be a unified home for
-[`differentiable holography`](https://github.com/cinescope-wkr/awesome-differentiable-holography):
+[`neural holography`](https://github.com/cinescope-wkr/awesome-differentiable-holography):
 a place where physicists, computer scientists, electrical engineers, optical engineers,
 perception researchers, and curious builders can move beyond fragmented one-off
 efforts and build together.
@@ -84,7 +84,8 @@ import pado
 import pado_hologram
 ```
 
-The first device-aware holography helper lives in `pado.display`:
+The first device-aware holography helper is still available through
+`pado.display` as a compatibility bridge:
 
 ```python
 from pado.display import LCOSLUT, lcos_encode_phase, slm_light_from_phase
@@ -97,13 +98,19 @@ entry points:
 from pado_hologram import SourceSpec, PropagationSpec, HologramPipeline
 ```
 
-For reproducible runs, the package also exposes a Hydra app:
+For reproducible runs, the package also exposes a small package banner and a CLI
+entry point:
 
 ```bash
-python -m pado_hologram.hydra_app experiment=gs
-python -m pado_hologram.hydra_app experiment=dpac target=gaussian
-python -m pado_hologram.hydra_app experiment=dpac target=gaussian backend=warp
+python -m pado_hologram
+pado-hologram doctor --run-smoke
+pado-hologram run experiment=gs
+pado-hologram run experiment=dpac target=gaussian
+pado-hologram run experiment=primitive_gaussian_gws_exact primitives=gaussian3d_depth_ring
 ```
+
+More detailed CLI and Hydra examples live in the documentation quickstart and
+experiment workflow pages.
 
 ## Documentation
 
@@ -128,7 +135,7 @@ The intended role split is:
 
 The current starting point for that upper layer already exists in this repository:
 
-- `pado.display` provides LCOS/SLM-oriented LUT encoding and phase-to-field conversion
+- `pado.display` remains available as a compatibility bridge for LCOS/SLM-oriented LUT encoding and phase-to-field conversion
 - `pado_hologram` now exposes concrete modules for configs, device encoding, targets, losses, multi-plane orchestration, DPAC/GS algorithms, and Hydra-based experiment entry points
 - `pado_hologram.backends` now exposes an optional [`NVIDIA Warp`](https://github.com/NVIDIA/warp) path for custom holography kernels without forcing a full propagation rewrite
 - the documentation now treats this direction as the main repository identity instead of a side note
@@ -151,7 +158,7 @@ research often accumulates over time.
 Current scope:
 
 - optional backend selection through `backend=torch|warp|auto`
-- first integration in the DPAC checkerboard custom-kernel path
+- custom-kernel paths in DPAC, primitive-scene splat renderers, and exact primitive-based GWS/RPWS renderers
 - safe Warp cache handling when `WARP_CACHE_DIR` is not already set
 - PyTorch propagation remains the default core path
 
@@ -173,14 +180,23 @@ open research culture.
 
 The first robust module set is already in place:
 
-- `pado_hologram.config` for source and propagation specifications
-- `pado_hologram.backends` for optional custom-kernel backends such as [`NVIDIA Warp`](https://github.com/NVIDIA/warp)
-- `pado_hologram.slm` for phase-only LCOS/SLM encoding
-- `pado_hologram.targets` for reconstruction targets
-- `pado_hologram.losses` for intensity/amplitude losses and metrics
-- `pado_hologram.pipeline` for source -> SLM -> propagation -> evaluation orchestration
-- `pado_hologram.algorithms` for compact hologram-generation algorithms such as Gerchberg-Saxton and DPAC
-- `pado_hologram.experiment` and `pado_hologram.hydra_app` for Hydra-friendly experiment execution
+| Module | Role |
+| --- | --- |
+| `pado_hologram.config` | Source and propagation specifications |
+| `pado_hologram.backends` | Optional custom-kernel backends such as [`NVIDIA Warp`](https://github.com/NVIDIA/warp) |
+| `pado_hologram.slm` | Phase-only LCOS/SLM encoding |
+| `pado_hologram.targets` | Reconstruction targets |
+| `pado_hologram.losses` | Intensity/amplitude losses and metrics |
+| `pado_hologram.pipeline` | Source -> SLM -> propagation -> evaluation orchestration |
+| `pado_hologram.algorithms` | Compact hologram-generation algorithms such as Gerchberg-Saxton and DPAC |
+| `pado_hologram.primitive_based` | gsplat-free primitive-scene Gaussian renderers, including a vectorized splat path with optional Warp backend selection and preset/JSON scene ingestion |
+| `pado_hologram.devices` | SLM support plus optional camera/observation transforms for primitive and future capture-aware experiments |
+| `pado_hologram.primitive_based` (`gaussian_wave`) | Depth-aware baseline that forms local Gaussian envelopes on per-depth object planes, groups them by depth, and propagates them coherently to the hologram plane with PADO propagation |
+| `pado_hologram.primitive_based` (`gaussian_wave_awb`) | hsplat-inspired path with opacity, depth ordering, and alpha wave blending style transmittance accumulation |
+| `pado_hologram.primitive_based` (exact RPWS) | Exact GWS-backed RPWS baseline with structured random phase and time-multiplexed intensity averaging |
+| `pado_hologram.experiments`, `pado_hologram.hydra_app` | CLI- and Hydra-friendly experiment execution |
+| `pado_hologram.representations` | Future primitive-based CGH scene representations |
+| `pado_hologram.neural` | Future capture, calibration, and learned holography workflows |
 
 ## PADO Core API
 
@@ -191,10 +207,19 @@ The `pado` package remains the core simulation API and currently provides:
 - `pado.propagator`
 - `pado.material`
 - `pado.math`
-- `pado.display`
 
 The API reference in the documentation should be read as the core foundation that
 `PADO Hologram` is built on top of.
+
+## Compatibility Bridge
+
+The module `pado.display` remains available in the `pado` namespace as a
+compatibility bridge for device-aware LCOS/SLM phase encoding. It is documented
+as a transitional layer rather than as part of the long-term `PADO` core
+identity.
+
+For new holography workflows, prefer the higher-level `pado_hologram` device
+and SLM abstractions built on top of that bridge.
 
 ## Examples
 
@@ -249,10 +274,11 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md) for the contributor-facing overview.
 
 - Added `pado.display` for LCOS/SLM-oriented phase encoding workflows with `LCOSLUT`, `lcos_encode_phase`, and `slm_light_from_phase`.
 - Added robust `pado_hologram` modules for configuration, SLM/device handling, targets, losses, single-plane and multi-plane pipelines, DPAC, and Gerchberg-Saxton optimization.
-- Added an optional [`NVIDIA Warp`](https://github.com/NVIDIA/warp) backend layer for custom holography kernels, starting with the DPAC checkerboard path rather than a full propagation rewrite.
-- Added a Hydra-friendly experiment layer and packaged config tree for reproducible holography runs.
+- Added primitive-based Gaussian renderer baselines, exact GWS-style paths, and an exact GWS-backed RPWS baseline with structured random phase and time-multiplexed intensity averaging.
+- Added an optional [`NVIDIA Warp`](https://github.com/NVIDIA/warp) backend layer for custom holography kernels across DPAC and primitive-based renderer paths rather than a full propagation rewrite.
+- Added a CLI- and Hydra-friendly experiment layer and packaged config tree for reproducible holography runs.
 - Stabilized core tensor-shape handling across `Light`, `OpticalElement`, `SLM`, and polarization-aware paths.
-- Expanded regression tests to cover the new display module and recently fixed stability issues.
+- Expanded regression and parity tests to cover the display bridge, primitive-based exact paths, and recently fixed stability issues.
 - Reframed the README and Sphinx documentation around the `PADO Hologram` repository identity.
 
 **Stability fixes in this update**:
