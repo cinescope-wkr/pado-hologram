@@ -1,0 +1,6 @@
+name: ideal_binned2
+enabled: true
+downsample: 2
+crop_shape: null
+exposure: 1.0
+normalize_mean: false

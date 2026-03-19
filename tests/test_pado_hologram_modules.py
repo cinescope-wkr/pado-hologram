@@ -7,6 +7,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from pado.display import LCOSLUT
 from pado_hologram import (
+    CameraObservationSpec,
     GerchbergSaxtonPhaseOptimizer,
     HologramPipeline,
     IntensityTarget,
@@ -64,3 +65,19 @@ def test_gerchberg_saxton_optimizer_handles_flat_identity_case() -> None:
     assert len(result.history) == 3
     assert torch.allclose(result.propagated_light.get_intensity(), torch.ones(1, 1, 8, 8))
     assert result.history[-1] == 0.0
+
+
+def test_camera_observation_spec_supports_crop_downsample_and_exposure() -> None:
+    camera = CameraObservationSpec(
+        name="ideal_binned2",
+        downsample=2,
+        crop_shape=(4, 4),
+        exposure=2.0,
+    )
+    intensity = torch.arange(36, dtype=torch.float32).view(1, 1, 6, 6)
+
+    observed = camera.observe_intensity(intensity)
+
+    expected = torch.tensor([[[[21.0, 25.0], [45.0, 49.0]]]])
+    assert observed.shape == (1, 1, 2, 2)
+    assert torch.allclose(observed, expected)

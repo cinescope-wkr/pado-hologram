@@ -1,0 +1,6 @@
+name: none
+enabled: false
+downsample: 1
+crop_shape: null
+exposure: 1.0
+normalize_mean: false

@@ -1,0 +1,13 @@
+name: gaussian3d_depth_ring
+preset: gaussian3d_depth_ring
+count: 8
+radius_pixels: 5.5
+scale_pixels: [1.5, 1.5, 0.01]
+amplitude: 0.9
+opacity: 0.7
+phase_start: 0.0
+phase_step: 0.18
+depth_start: 0.001
+depth_step: 0.0003
+projection:
+  focal_lengths_px: [160.0, 160.0]

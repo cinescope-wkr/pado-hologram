@@ -1,0 +1,8 @@
+name: gaussian_grid
+preset: grid
+coordinate_system: normalized
+grid_shape: [3, 4]
+padding: [0.18, 0.14]
+sigma_yx: [1.35, 1.35]
+amplitude: 0.8
+phase: 0.0

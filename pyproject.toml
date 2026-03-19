@@ -37,6 +37,9 @@ Homepage = "https://github.com/cinescope-wkr/pado-hologram"
 Repository = "https://github.com/cinescope-wkr/pado-hologram.git"
 Documentation = "https://cinescope-wkr.github.io/pado-hologram/"
 
+[project.scripts]
+pado-hologram = "pado_hologram.cli:main"
+
 [tool.setuptools.packages.find]
 include = ["pado", "pado.*", "pado_hologram", "pado_hologram.*"]
 

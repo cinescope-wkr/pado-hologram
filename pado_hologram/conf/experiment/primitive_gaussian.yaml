@@ -1,0 +1,2 @@
+method: primitive_gaussian
+renderer: gaussian_naive

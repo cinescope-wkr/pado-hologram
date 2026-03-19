@@ -1,0 +1,4 @@
+method: primitive_gaussian_gws_exact
+renderer: gaussian_gws_exact_awb
+sort_order: front2back
+alpha_binary_threshold: 0.0

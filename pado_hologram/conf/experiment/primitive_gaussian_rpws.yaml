@@ -1,0 +1,10 @@
+method: primitive_gaussian_rpws
+renderer: gaussian_gws_rpws_exact
+sort_order: back2front
+alpha_binary_threshold: 0.0
+num_frames: 8
+angular_profile: uniform
+angular_radius_fraction: 1.0
+angular_sigma_fraction: 0.35
+random_phase_range: 3.141592653589793
+random_seed: 7

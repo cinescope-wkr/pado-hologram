@@ -1,0 +1,13 @@
+name: gaussian_depth_ring
+preset: depth_ring
+coordinate_system: normalized
+center_yx: [0.5, 0.5]
+radius: 0.22
+count: 8
+sigma_yx: [1.6, 1.6]
+amplitude: 0.8
+opacity: 0.65
+phase_start: 0.0
+phase_step: 0.25
+depth_start: 0.001
+depth_step: 0.00035

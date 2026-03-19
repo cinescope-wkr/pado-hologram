@@ -1,0 +1,4 @@
+method: primitive_gaussian_awb
+renderer: gaussian_wave_awb
+sort_order: back2front
+alpha_binary_threshold: 0.0

@@ -1,0 +1,16 @@
+name: gaussian_demo
+gaussians:
+  - center_yx: [10.0, 10.0]
+    sigma_yx: [2.5, 4.0]
+    amplitude: 1.0
+    phase: 0.0
+    rotation: 0.0
+  - center_yx: [21.0, 22.0]
+    sigma_yx: [3.0, 2.0]
+    amplitude: 0.7
+    phase: 0.6
+    rotation: 0.4
+points:
+  - yx: [16.0, 6.0]
+    amplitude: 0.4
+    phase: 1.2

@@ -1,0 +1,10 @@
+name: gaussian_ring
+preset: ring
+coordinate_system: normalized
+center_yx: [0.5, 0.5]
+radius: 0.28
+count: 10
+sigma_yx: [1.6, 1.6]
+amplitude: 0.9
+phase_start: 0.0
+phase_step: 0.3

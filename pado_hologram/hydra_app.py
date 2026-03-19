@@ -1,20 +1,8 @@
-from __future__ import annotations
+"""Backward-compatible Hydra CLI entry point."""
 
-import hydra
-from omegaconf import DictConfig, OmegaConf
+from .experiments.hydra import main
 
-from .experiment import run_experiment
-
-
-@hydra.main(config_path="conf", config_name="config", version_base=None)
-def main(cfg: DictConfig) -> None:
-    summary = run_experiment(cfg)
-    payload = {
-        "method": summary.method,
-        "metrics": summary.metrics,
-        "extras": summary.extras,
-    }
-    print(OmegaConf.to_yaml(payload, resolve=True))
+__all__ = ["main"]
 
 
 if __name__ == "__main__":

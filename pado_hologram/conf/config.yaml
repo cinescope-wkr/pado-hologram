@@ -3,8 +3,10 @@ defaults:
   - source: default
   - propagation: asm
   - target: flat
+  - primitives: gaussian_demo
   - slm: linear_lcos
   - backend: auto
+  - camera: none
   - experiment: gs
 
 hydra:
