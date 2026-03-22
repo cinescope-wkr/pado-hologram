@@ -6,6 +6,7 @@ repo_name: cinescope-wkr/pado-hologram
 edit_uri: edit/main/docs_mkdocs/
 theme:
   name: material
+  custom_dir: overrides
   language: en
   features:
     - navigation.instant

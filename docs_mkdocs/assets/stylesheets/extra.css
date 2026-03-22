@@ -6,6 +6,17 @@
   --pado-hero-fg: #f5fbff;
 }
 
+.pado-header-home {
+  color: inherit;
+  display: block;
+  text-decoration: none;
+}
+
+.pado-header-home:hover,
+.pado-header-home:focus {
+  color: inherit;
+}
+
 .md-typeset .pado-hero {
   background: var(--pado-hero-bg);
   border: 1px solid rgba(148, 163, 184, 0.18);
