@@ -161,6 +161,10 @@
 }
 
 @media screen and (max-width: 45em) {
+  .md-content__button[rel="edit"] {
+    display: none;
+  }
+
   .md-typeset .pado-hero {
     border-radius: 0.85rem;
     margin-bottom: 1.2rem;
