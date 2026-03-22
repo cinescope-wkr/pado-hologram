@@ -183,14 +183,17 @@
   }
 
   .md-typeset .pado-hero-actions {
-    display: grid;
-    gap: 0.65rem;
+    display: block;
   }
 
   .md-typeset .pado-hero-actions .md-button {
     display: block;
     text-align: center;
     width: 100%;
+  }
+
+  .md-typeset .pado-hero-actions .md-button + .md-button {
+    margin-top: 0.7rem;
   }
 
   .md-typeset .grid.cards {
